@@ -1,0 +1,76 @@
+{
+	"/(client)": [
+		"src/routes/(client)/+page.js",
+		"src/routes/+layout.js",
+		"src/routes/+layout.js"
+	],
+	"/": [
+		"src/routes/+layout.js"
+	],
+	"/admin": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.js"
+	],
+	"/admin/administrator": [
+		"src/routes/+layout.js"
+	],
+	"/admin/apb-desa": [
+		"src/routes/+layout.js"
+	],
+	"/admin/apb-desa/form": [
+		"src/routes/+layout.js"
+	],
+	"/admin/berita": [
+		"src/routes/+layout.js"
+	],
+	"/admin/berita/tambah": [
+		"src/routes/+layout.js"
+	],
+	"/admin/demografi": [
+		"src/routes/+layout.js"
+	],
+	"/admin/galeri": [
+		"src/routes/+layout.js"
+	],
+	"/admin/peta": [
+		"src/routes/+layout.js"
+	],
+	"/admin/peta/form": [
+		"src/routes/+layout.js"
+	],
+	"/admin/profil-desa": [
+		"src/routes/+layout.js"
+	],
+	"/admin/struktur-organisasi": [
+		"src/routes/+layout.js"
+	],
+	"/(client)/apb-desa": [
+		"src/routes/+layout.js"
+	],
+	"/(client)/berita": [
+		"src/routes/+layout.js"
+	],
+	"/(client)/berita/[slug]": [
+		"src/routes/+layout.js"
+	],
+	"/(client)/demografi": [
+		"src/routes/+layout.js"
+	],
+	"/login": [
+		"src/routes/+layout.js"
+	],
+	"/(client)/peta": [
+		"src/routes/+layout.js"
+	],
+	"/(client)/profil": [
+		"src/routes/(client)/profil/+page.js",
+		"src/routes/+layout.js"
+	],
+	"/struktur-organisasi": [
+		"src/routes/struktur-organisasi/+page.js",
+		"src/routes/+layout.js"
+	],
+	"/(client)/wisata-umkm": [
+		"src/routes/+layout.js"
+	]
+}

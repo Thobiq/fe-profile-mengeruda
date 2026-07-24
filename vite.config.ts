@@ -1,0 +1,26 @@
+import tailwindcss from '@tailwindcss/vite';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+	plugins: [
+		sveltekit(),
+		tailwindcss()
+	],
+	server: {
+		proxy: {
+			'/api': {
+				target: 'http://localhost:8000',
+				changeOrigin: true,
+			},
+			'/sanctum': {
+				target: 'http://localhost:8000',
+				changeOrigin: true,
+			},
+			'/storage': {
+				target: 'http://localhost:8000',
+				changeOrigin: true,
+			}
+		}
+	}
+});
