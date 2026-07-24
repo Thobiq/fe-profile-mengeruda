@@ -132,7 +132,8 @@
   const redirectToSSO = () => {
     // Redirect ke SSO dengan menyertakan return URL saat ini
     const currentUrl = window.location.href;
-    window.location.href = `http://localhost:5174/?redirect_to=${encodeURIComponent(currentUrl)}`;
+    const ssoUrl = import.meta.env.VITE_PUBLIC_SSO_URL || 'http://localhost:5174';
+    window.location.href = `${ssoUrl}/?redirect_to=${encodeURIComponent(currentUrl)}`;
   };
 
   const handleLogout = async () => {

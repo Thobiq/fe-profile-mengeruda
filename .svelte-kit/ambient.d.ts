@@ -38,6 +38,7 @@
  * The above values will be the same _even if_ different values for `ENVIRONMENT` or `PUBLIC_BASE_URL` are set at runtime, as they are statically replaced in your code with their build time values.
  */
 declare module '$env/static/private' {
+	export const VITE_PUBLIC_SSO_URL: string;
 	export const npm_execpath: string;
 	export const CHROME_CRASHPAD_PIPE_NAME: string;
 	export const EFC_32124_1262719628: string;
@@ -218,6 +219,7 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		VITE_PUBLIC_SSO_URL: string;
 		npm_execpath: string;
 		CHROME_CRASHPAD_PIPE_NAME: string;
 		EFC_32124_1262719628: string;
