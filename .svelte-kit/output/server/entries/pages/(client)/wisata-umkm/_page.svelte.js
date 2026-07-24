@@ -1,5 +1,5 @@
 import "../../../../chunks/index-server.js";
-import { C as attr, a as head, i as ensure_array_like, r as derived, t as attr_class, w as escape_html } from "../../../../chunks/server.js";
+import { E as escape_html, a as ensure_array_like, i as derived, o as head, t as attr_class, w as attr } from "../../../../chunks/server.js";
 //#region src/lib/components/PetaWisata.svelte
 function PetaWisata($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {

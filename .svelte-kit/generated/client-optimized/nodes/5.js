@@ -1,1 +1,1 @@
-export { default as component } from "../../../../src/routes/(client)/demografi/+page.svelte";
+export { default as component } from "../../../../src/routes/(client)/apb-desa/+page.svelte";

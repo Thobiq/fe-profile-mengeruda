@@ -9,9 +9,28 @@
       "_internal2.js"
     ]
   },
-  "_app.CbkgIeUP.css": {
-    "file": "_app/immutable/assets/app.CbkgIeUP.css",
-    "src": "_app.CbkgIeUP.css"
+  "_QuillEditor.CRoDdpn2.css": {
+    "file": "_app/immutable/assets/QuillEditor.CRoDdpn2.css",
+    "src": "_QuillEditor.CRoDdpn2.css"
+  },
+  "_QuillEditor.js": {
+    "file": "chunks/QuillEditor.js",
+    "name": "QuillEditor",
+    "imports": [
+      "_index-server.js",
+      "_server.js"
+    ],
+    "css": [
+      "_app/immutable/assets/QuillEditor.CRoDdpn2.css"
+    ]
+  },
+  "_api.js": {
+    "file": "chunks/api.js",
+    "name": "api"
+  },
+  "_app.CdMHrJWz.css": {
+    "file": "_app/immutable/assets/app.CdMHrJWz.css",
+    "src": "_app.CdMHrJWz.css"
   },
   "_client.js": {
     "file": "chunks/client.js",
@@ -63,6 +82,15 @@
   "_shared.js": {
     "file": "chunks/shared.js",
     "name": "shared"
+  },
+  "_stores.js": {
+    "file": "chunks/stores.js",
+    "name": "stores",
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_client.js"
+    ]
   },
   "_utils.js": {
     "file": "chunks/utils.js",
@@ -117,11 +145,17 @@
       "_index-server.js",
       "_internal2.js",
       "_server.js",
-      "_client.js"
+      "_stores.js"
     ],
     "css": [
-      "_app/immutable/assets/app.CbkgIeUP.css"
+      "_app/immutable/assets/app.CdMHrJWz.css"
     ]
+  },
+  "src/routes/(client)/+page.js": {
+    "file": "entries/pages/(client)/_page.js",
+    "name": "entries/pages/(client)/_page",
+    "src": "src/routes/(client)/+page.js",
+    "isEntry": true
   },
   "src/routes/(client)/+page.svelte": {
     "file": "entries/pages/(client)/_page.svelte.js",
@@ -135,13 +169,41 @@
       "_app/immutable/assets/_page.DZDZ-MEE.css"
     ]
   },
+  "src/routes/(client)/apb-desa/+page.svelte": {
+    "file": "entries/pages/(client)/apb-desa/_page.svelte.js",
+    "name": "entries/pages/(client)/apb-desa/_page.svelte",
+    "src": "src/routes/(client)/apb-desa/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js"
+    ]
+  },
   "src/routes/(client)/berita/+page.svelte": {
     "file": "entries/pages/(client)/berita/_page.svelte.js",
     "name": "entries/pages/(client)/berita/_page.svelte",
     "src": "src/routes/(client)/berita/+page.svelte",
     "isEntry": true,
     "imports": [
+      "_index-server.js",
       "_server.js"
+    ]
+  },
+  "src/routes/(client)/berita/[slug]/+page.js": {
+    "file": "entries/pages/(client)/berita/_slug_/_page.js",
+    "name": "entries/pages/(client)/berita/_slug_/_page",
+    "src": "src/routes/(client)/berita/[slug]/+page.js",
+    "isEntry": true
+  },
+  "src/routes/(client)/berita/[slug]/+page.svelte": {
+    "file": "entries/pages/(client)/berita/_slug_/_page.svelte.js",
+    "name": "entries/pages/(client)/berita/_slug_/_page.svelte",
+    "src": "src/routes/(client)/berita/[slug]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_stores.js"
     ]
   },
   "src/routes/(client)/demografi/+page.svelte": {
@@ -167,12 +229,19 @@
       "_app/immutable/assets/_page.C2KUdGZr.css"
     ]
   },
+  "src/routes/(client)/profil/+page.js": {
+    "file": "entries/pages/(client)/profil/_page.js",
+    "name": "entries/pages/(client)/profil/_page",
+    "src": "src/routes/(client)/profil/+page.js",
+    "isEntry": true
+  },
   "src/routes/(client)/profil/+page.svelte": {
     "file": "entries/pages/(client)/profil/_page.svelte.js",
     "name": "entries/pages/(client)/profil/_page.svelte",
     "src": "src/routes/(client)/profil/+page.svelte",
     "isEntry": true,
     "imports": [
+      "_index-server.js",
       "_server.js"
     ]
   },
@@ -201,10 +270,156 @@
     "src": "src/routes/+layout.svelte",
     "isEntry": true,
     "imports": [
-      "_server.js"
+      "_index-server.js",
+      "_server.js",
+      "_stores.js"
     ],
     "css": [
-      "_app/immutable/assets/app.CbkgIeUP.css"
+      "_app/immutable/assets/app.CdMHrJWz.css"
+    ]
+  },
+  "src/routes/admin/+layout.svelte": {
+    "file": "entries/pages/admin/_layout.svelte.js",
+    "name": "entries/pages/admin/_layout.svelte",
+    "src": "src/routes/admin/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_stores.js",
+      "_api.js"
+    ]
+  },
+  "src/routes/admin/+page.svelte": {
+    "file": "entries/pages/admin/_page.svelte.js",
+    "name": "entries/pages/admin/_page.svelte",
+    "src": "src/routes/admin/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_server.js"
+    ]
+  },
+  "src/routes/admin/administrator/+page.svelte": {
+    "file": "entries/pages/admin/administrator/_page.svelte.js",
+    "name": "entries/pages/admin/administrator/_page.svelte",
+    "src": "src/routes/admin/administrator/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
+    ]
+  },
+  "src/routes/admin/apb-desa/+page.svelte": {
+    "file": "entries/pages/admin/apb-desa/_page.svelte.js",
+    "name": "entries/pages/admin/apb-desa/_page.svelte",
+    "src": "src/routes/admin/apb-desa/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
+    ]
+  },
+  "src/routes/admin/apb-desa/form/+page.svelte": {
+    "file": "entries/pages/admin/apb-desa/form/_page.svelte.js",
+    "name": "entries/pages/admin/apb-desa/form/_page.svelte",
+    "src": "src/routes/admin/apb-desa/form/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_stores.js",
+      "_api.js"
+    ]
+  },
+  "src/routes/admin/berita/+page.svelte": {
+    "file": "entries/pages/admin/berita/_page.svelte.js",
+    "name": "entries/pages/admin/berita/_page.svelte",
+    "src": "src/routes/admin/berita/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js"
+    ]
+  },
+  "src/routes/admin/berita/tambah/+page.svelte": {
+    "file": "entries/pages/admin/berita/tambah/_page.svelte.js",
+    "name": "entries/pages/admin/berita/tambah/_page.svelte",
+    "src": "src/routes/admin/berita/tambah/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_server.js",
+      "_api.js",
+      "_QuillEditor.js"
+    ]
+  },
+  "src/routes/admin/demografi/+page.svelte": {
+    "file": "entries/pages/admin/demografi/_page.svelte.js",
+    "name": "entries/pages/admin/demografi/_page.svelte",
+    "src": "src/routes/admin/demografi/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
+    ]
+  },
+  "src/routes/admin/galeri/+page.svelte": {
+    "file": "entries/pages/admin/galeri/_page.svelte.js",
+    "name": "entries/pages/admin/galeri/_page.svelte",
+    "src": "src/routes/admin/galeri/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
+    ]
+  },
+  "src/routes/admin/peta/+page.svelte": {
+    "file": "entries/pages/admin/peta/_page.svelte.js",
+    "name": "entries/pages/admin/peta/_page.svelte",
+    "src": "src/routes/admin/peta/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
+    ]
+  },
+  "src/routes/admin/peta/form/+page.svelte": {
+    "file": "entries/pages/admin/peta/form/_page.svelte.js",
+    "name": "entries/pages/admin/peta/form/_page.svelte",
+    "src": "src/routes/admin/peta/form/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_stores.js",
+      "_api.js"
+    ]
+  },
+  "src/routes/admin/profil-desa/+page.svelte": {
+    "file": "entries/pages/admin/profil-desa/_page.svelte.js",
+    "name": "entries/pages/admin/profil-desa/_page.svelte",
+    "src": "src/routes/admin/profil-desa/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js",
+      "_QuillEditor.js"
+    ]
+  },
+  "src/routes/admin/struktur-organisasi/+page.svelte": {
+    "file": "entries/pages/admin/struktur-organisasi/_page.svelte.js",
+    "name": "entries/pages/admin/struktur-organisasi/_page.svelte",
+    "src": "src/routes/admin/struktur-organisasi/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
     ]
   },
   "src/routes/login/+page.svelte": {
@@ -213,6 +428,22 @@
     "src": "src/routes/login/+page.svelte",
     "isEntry": true,
     "imports": [
+      "_server.js"
+    ]
+  },
+  "src/routes/struktur-organisasi/+page.js": {
+    "file": "entries/pages/struktur-organisasi/_page.js",
+    "name": "entries/pages/struktur-organisasi/_page",
+    "src": "src/routes/struktur-organisasi/+page.js",
+    "isEntry": true
+  },
+  "src/routes/struktur-organisasi/+page.svelte": {
+    "file": "entries/pages/struktur-organisasi/_page.svelte.js",
+    "name": "entries/pages/struktur-organisasi/_page.svelte",
+    "src": "src/routes/struktur-organisasi/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
       "_server.js"
     ]
   },

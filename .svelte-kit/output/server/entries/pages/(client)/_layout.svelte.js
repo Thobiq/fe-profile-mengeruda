@@ -1,38 +1,8 @@
 import "../../../chunks/index-server.js";
 import { o as public_env } from "../../../chunks/internal2.js";
-import { C as attr, h as getContext, i as ensure_array_like, l as unsubscribe_stores, s as store_get, t as attr_class, w as escape_html } from "../../../chunks/server.js";
+import { E as escape_html, a as ensure_array_like, c as store_get, t as attr_class, u as unsubscribe_stores, w as attr } from "../../../chunks/server.js";
 /* empty css                  */
-import "../../../chunks/client.js";
-//#region node_modules/@sveltejs/kit/src/runtime/app/stores.js
-/**
-* A function that returns all of the contextual stores. On the server, this must be called during component initialization.
-* Only use this if you need to defer store subscription until after the component has mounted, for some reason.
-*
-* @deprecated Use `$app/state` instead (requires Svelte 5, [see docs for more info](https://svelte.dev/docs/kit/migrating-to-sveltekit-2#SvelteKit-2.12:-$app-stores-deprecated))
-*/
-var getStores = () => {
-	const stores$1 = getContext("__svelte__");
-	return {
-		/** @type {typeof page} */
-		page: { subscribe: stores$1.page.subscribe },
-		/** @type {typeof navigating} */
-		navigating: { subscribe: stores$1.navigating.subscribe },
-		/** @type {typeof updated} */
-		updated: stores$1.updated
-	};
-};
-/**
-* A readable store whose value contains page data.
-*
-* On the server, this store can only be subscribed to during component initialization. In the browser, it can be subscribed to at any time.
-*
-* @deprecated Use `page` from `$app/state` instead (requires Svelte 5, [see docs for more info](https://svelte.dev/docs/kit/migrating-to-sveltekit-2#SvelteKit-2.12:-$app-stores-deprecated))
-* @type {import('svelte/store').Readable<import('@sveltejs/kit').Page>}
-*/
-var page = { subscribe(fn) {
-	return getStores().page.subscribe(fn);
-} };
-//#endregion
+import { t as page } from "../../../chunks/stores.js";
 //#region src/lib/components/Navbar.svelte
 function Navbar($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
@@ -47,8 +17,8 @@ function Navbar($$renderer, $$props) {
 				path: "/profil"
 			},
 			{
-				name: "Wisata & UMKM",
-				path: "/wisata-umkm"
+				name: "Pariwisata",
+				path: "https://tourism.mengeruda.id/"
 			},
 			{
 				name: "Peta",
@@ -73,7 +43,7 @@ function Navbar($$renderer, $$props) {
 				]
 			}
 		];
-		$$renderer.push(`<nav class="bg-white w-full shadow-sm relative z-50"><div class="max-w-[1500px] mx-auto px-6 py-4 flex items-center justify-between"><a href="/" class="flex items-center gap-3 hover:opacity-90 transition-opacity"><img src="/logo.png" alt="Logo Desa Mengeruda" class="w-12 h-14 object-contain"/> <div class="flex flex-col"><h1 class="text-[22px] font-serif font-bold text-emerald-800 leading-tight">Desa Mengeruda</h1> <p class="text-[13px] text-gray-900 font-serif">Kab. Ngada, Nusa Tenggara Timur</p></div></a> <ul class="hidden md:flex items-center gap-7"><!--[-->`);
+		$$renderer.push(`<nav class="bg-white w-full shadow-sm relative z-50"><div class="max-w-[1500px] mx-auto px-6 py-4 flex items-center justify-between"><a href="/" class="flex items-center gap-3 hover:opacity-90 transition-opacity"><img${attr("src", "/logo.png")} alt="Logo Desa Mengeruda" class="w-12 h-14 object-contain"/> <div class="flex flex-col"><h1 class="text-[22px] font-serif font-bold text-emerald-800 leading-tight">Desa Mengeruda</h1> <p class="text-[13px] text-gray-900 font-serif">Kab. Ngada, Nusa Tenggara Timur</p></div></a> <ul class="hidden md:flex items-center gap-7"><!--[-->`);
 		const each_array = ensure_array_like(navLinks);
 		for (let $$index_1 = 0, $$length = each_array.length; $$index_1 < $$length; $$index_1++) {
 			let link = each_array[$$index_1];

@@ -51,6 +51,7 @@
 		"src/routes/+layout.js"
 	],
 	"/(client)/berita/[slug]": [
+		"src/routes/(client)/berita/[slug]/+page.js",
 		"src/routes/+layout.js"
 	],
 	"/(client)/demografi": [

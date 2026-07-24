@@ -1,5 +1,5 @@
 import "../../../../chunks/index-server.js";
-import { a as head } from "../../../../chunks/server.js";
+import { o as head } from "../../../../chunks/server.js";
 //#region src/routes/(client)/peta/+page.svelte
 function _page($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {

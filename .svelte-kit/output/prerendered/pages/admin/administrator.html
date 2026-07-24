@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="text-scale" content="scale" />
+		<link href="../_app/immutable/entry/start.Nwle6PFX.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/ewFIUwJR.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/BJZZ1NVH.js" rel="modulepreload">
+		<link href="../_app/immutable/entry/app.MOHmDcMa.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/HclGiUj8.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/xihTtKlq.js" rel="modulepreload">
+		<link href="../_app/immutable/nodes/0.Crz7MjKL.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/Bgn2hf7M.js" rel="modulepreload">
+		<link href="../_app/immutable/nodes/3.Cr9FRVDr.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/DIylplC0.js" rel="modulepreload">
+		<link href="../_app/immutable/nodes/13.qsKCu123.js" rel="modulepreload">
+		<link href="../_app/immutable/chunks/B1wI3aDv.js" rel="modulepreload">
+		<link href="../_app/env.js" rel="modulepreload">
+		
+		<link href="../_app/immutable/assets/app.BblzCqmF.css" rel="stylesheet">
+		<style>
+			#splash-screen {
+				position: fixed;
+				inset: 0;
+				background-color: #ffffff;
+				z-index: 9999999;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				transition: opacity 0.8s ease-in-out, visibility 0.8s;
+			}
+			.splash-circle {
+				width: 110px;
+				height: 110px;
+				border-radius: 50%;
+				background-color: #e5e7eb; /* light grey placeholder */
+				margin-bottom: 24px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+			}
+			.splash-circle img {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+				padding: 10px;
+			}
+			.splash-title {
+				font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+				font-size: 32px;
+				font-weight: 700;
+				color: #15803d;
+				text-align: center;
+				line-height: 1.2;
+				margin-bottom: 20px;
+			}
+			.splash-loading-area {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.splash-spinner {
+				width: 22px;
+				height: 22px;
+				border: 3px solid #e5e7eb;
+				border-top-color: #15803d;
+				border-radius: 50%;
+				animation: splash-spin 1s linear infinite;
+			}
+			.splash-text {
+				font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+				color: #4b5563;
+				font-size: 16px;
+				font-weight: 500;
+			}
+			@keyframes splash-spin {
+				to { transform: rotate(360deg); }
+			}
+			@media (max-width: 640px) {
+				.splash-title { font-size: 24px; }
+				.splash-circle { width: 90px; height: 90px; }
+			}
+		</style>
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div id="splash-screen">
+			<div class="splash-circle">
+				<img id="splash-logo" src="/logo.png" alt="Logo" style="display: none;" onload="this.style.display='block'" onerror="this.style.display='none'"/>
+			</div>
+			<div class="splash-title">
+				Selamat Datang di<br/>Website Resmi Desa Mengeruda
+			</div>
+			<div class="splash-loading-area">
+				<div class="splash-spinner"></div>
+				<div class="splash-text">Sedang memuat data</div>
+			</div>
+		</div>
+
+		<script>
+			fetch('/api/village-profile')
+				.then(r => r.json())
+				.then(res => {
+					let data = res.data || res;
+					if (data && data.logo_url) {
+						let url = data.logo_url;
+						if (!url.startsWith('http')) url = 'http://localhost:8000' + (url.startsWith('/') ? '' : '/') + url;
+						document.getElementById('splash-logo').src = url;
+					}
+				}).catch(e => console.log('Splash logo fetch error', e));
+		</script>
+
+		<div style="display: contents">
+			<script>
+				{
+					__sveltekit_xc7tdj = {
+						base: new URL("..", location).pathname.slice(0, -1),
+						env: null
+					};
+
+					const element = document.currentScript.parentElement;
+
+					import("../_app/env.js").then(({ env }) => {
+						__sveltekit_xc7tdj.env = env;
+
+						Promise.all([
+							import("../_app/immutable/entry/start.Nwle6PFX.js"),
+							import("../_app/immutable/entry/app.MOHmDcMa.js")
+						]).then(([kit, app]) => {
+							kit.start(app, element);
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>

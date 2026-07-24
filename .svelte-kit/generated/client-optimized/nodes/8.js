@@ -1,1 +1,1 @@
-export { default as component } from "../../../../src/routes/(client)/wisata-umkm/+page.svelte";
+export { default as component } from "../../../../src/routes/(client)/demografi/+page.svelte";
