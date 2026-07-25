@@ -2,7 +2,7 @@
 /** @param {Parameters<import('./$types').PageLoad>[0]} event */
 export async function load({ fetch }) {
     try {
-        const response = await fetch('http://localhost:8000/api/struktur-desa');
+        const response = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/struktur-desa`);
         
         if (!response.ok) {
             throw new Error('Gagal mengambil data struktur organisasi');

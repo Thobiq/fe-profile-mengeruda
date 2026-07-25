@@ -68,7 +68,7 @@
       }).addTo(map);
 
       // 6. Mengambil Data Peta Dinamis dari Database
-      const apiRes = await fetch('http://127.0.0.1:8000/api/map-locations');
+      const apiRes = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/map-locations`);
       const apiJson = await apiRes.json();
       
       const categoryColors = {
@@ -101,7 +101,7 @@
           
           if (loc.thumbnail) {
             // Gunakan path full dari backend jika thumbnail hanya berupa path relatif
-            const imgUrl = loc.thumbnail.startsWith('http') ? loc.thumbnail : `http://127.0.0.1:8000${loc.thumbnail}`;
+            const imgUrl = loc.thumbnail.startsWith('http') ? loc.thumbnail : `${import.meta.env.VITE_PUBLIC_BACKEND_URL}${loc.thumbnail}`;
             popupContent += `<img src="${imgUrl}" alt="${loc.name}" class="w-full h-32 object-cover rounded-xl mb-3 shadow-sm" />`;
           }
           

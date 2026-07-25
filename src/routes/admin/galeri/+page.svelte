@@ -65,7 +65,7 @@
     isEditMode = true;
     galleryToEdit = gal;
     uploadTitle = gal.title || '';
-    imagePreview = `http://127.0.0.1:8000/storage/${gal.image_path}`;
+    imagePreview = `${import.meta.env.VITE_PUBLIC_BACKEND_URL}/storage/${gal.image_path}`;
     showUploadModal = true;
   };
 
@@ -187,7 +187,7 @@
     {#each galleries as item}
       <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden group shadow-sm hover:shadow-xl transition-all duration-300">
         <div class="relative aspect-video overflow-hidden bg-gray-100">
-          <img src={`http://127.0.0.1:8000/storage/${item.image_path}`} alt={item.title || 'Galeri Desa'} class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
+          <img src={`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/storage/${item.image_path}`} alt={item.title || 'Galeri Desa'} class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
           
           <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3 backdrop-blur-[2px]">
             <button 

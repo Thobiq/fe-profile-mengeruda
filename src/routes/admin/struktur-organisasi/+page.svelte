@@ -78,7 +78,7 @@
         parentId: p.parent_id ? p.parent_id.toString() : "",
         name: p.nama,
         positionName: p.jabatan,
-        imageUrl: p.foto ? `http://localhost:8000/storage/${p.foto}` : '/user-placeholder.png'
+        imageUrl: p.foto ? `${import.meta.env.VITE_PUBLIC_BACKEND_URL}/storage/${p.foto}` : '/user-placeholder.png'
     }));
 
     if (!chart) {
@@ -166,7 +166,7 @@
       f_parent_id = currentData.parent_id || '';
       f_urutan = currentData.urutan;
       if (currentData.foto) {
-        f_currentFotoUrl = `http://localhost:8000/storage/${currentData.foto}`;
+        f_currentFotoUrl = `${import.meta.env.VITE_PUBLIC_BACKEND_URL}/storage/${currentData.foto}`;
       }
       showFormModal = true;
     }

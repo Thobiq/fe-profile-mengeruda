@@ -38,15 +38,14 @@
  * The above values will be the same _even if_ different values for `ENVIRONMENT` or `PUBLIC_BASE_URL` are set at runtime, as they are statically replaced in your code with their build time values.
  */
 declare module '$env/static/private' {
+	export const VITE_PUBLIC_BACKEND_URL: string;
 	export const VITE_PUBLIC_SSO_URL: string;
 	export const npm_execpath: string;
 	export const CHROME_CRASHPAD_PIPE_NAME: string;
-	export const EFC_32124_1262719628: string;
 	export const npm_config_node_gyp: string;
 	export const npm_config_init_module: string;
 	export const NODE_ENV: string;
 	export const ALLUSERSPROFILE: string;
-	export const EFC_32124_3789132940: string;
 	export const CommonProgramFiles: string;
 	export const USERPROFILE: string;
 	export const ANTIGRAVITY_CLI_ALIAS: string;
@@ -59,23 +58,25 @@ declare module '$env/static/private' {
 	export const COLORTERM: string;
 	export const PROCESSOR_IDENTIFIER: string;
 	export const npm_config_userconfig: string;
+	export const EFC_20916_3789132940: string;
 	export const COMPUTERNAME: string;
 	export const USERNAME: string;
 	export const ComSpec: string;
 	export const configsetroot: string;
 	export const DriverData: string;
+	export const PATHEXT: string;
+	export const EFC_20916_1262719628: string;
+	export const NVM_HOME: string;
+	export const EFC_20916_1592913036: string;
+	export const HOMEPATH: string;
+	export const EFC_20916_2283032206: string;
+	export const EFC_20916_2775293581: string;
 	export const npm_package_version: string;
+	export const EFC_20916_4126798990: string;
 	export const HOMEDRIVE: string;
-	export const EFC_32124_1592913036: string;
-	export const EFC_32124_2283032206: string;
-	export const npm_config_prefix: string;
-	export const NPM_PREFIX_NPM_CLI_JS: string;
-	export const EFC_32124_2775293581: string;
-	export const EFC_32124_4126798990: string;
 	export const npm_config_global_prefix: string;
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const HOME: string;
-	export const HOMEPATH: string;
 	export const INIT_CWD: string;
 	export const Path: string;
 	export const npm_lifecycle_event: string;
@@ -95,6 +96,8 @@ declare module '$env/static/private' {
 	export const npm_config_engine_strict: string;
 	export const npm_config_globalconfig: string;
 	export const npm_config_npm_version: string;
+	export const npm_config_prefix: string;
+	export const NPM_PREFIX_NPM_CLI_JS: string;
 	export const OS: string;
 	export const npm_config_user_agent: string;
 	export const npm_lifecycle_script: string;
@@ -102,8 +105,6 @@ declare module '$env/static/private' {
 	export const npm_package_json: string;
 	export const npm_package_name: string;
 	export const NUMBER_OF_PROCESSORS: string;
-	export const NVM_HOME: string;
-	export const PATHEXT: string;
 	export const PROCESSOR_ARCHITECTURE: string;
 	export const PROCESSOR_LEVEL: string;
 	export const PROCESSOR_REVISION: string;
@@ -219,15 +220,14 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		VITE_PUBLIC_BACKEND_URL: string;
 		VITE_PUBLIC_SSO_URL: string;
 		npm_execpath: string;
 		CHROME_CRASHPAD_PIPE_NAME: string;
-		EFC_32124_1262719628: string;
 		npm_config_node_gyp: string;
 		npm_config_init_module: string;
 		NODE_ENV: string;
 		ALLUSERSPROFILE: string;
-		EFC_32124_3789132940: string;
 		CommonProgramFiles: string;
 		USERPROFILE: string;
 		ANTIGRAVITY_CLI_ALIAS: string;
@@ -240,23 +240,25 @@ declare module '$env/dynamic/private' {
 		COLORTERM: string;
 		PROCESSOR_IDENTIFIER: string;
 		npm_config_userconfig: string;
+		EFC_20916_3789132940: string;
 		COMPUTERNAME: string;
 		USERNAME: string;
 		ComSpec: string;
 		configsetroot: string;
 		DriverData: string;
+		PATHEXT: string;
+		EFC_20916_1262719628: string;
+		NVM_HOME: string;
+		EFC_20916_1592913036: string;
+		HOMEPATH: string;
+		EFC_20916_2283032206: string;
+		EFC_20916_2775293581: string;
 		npm_package_version: string;
+		EFC_20916_4126798990: string;
 		HOMEDRIVE: string;
-		EFC_32124_1592913036: string;
-		EFC_32124_2283032206: string;
-		npm_config_prefix: string;
-		NPM_PREFIX_NPM_CLI_JS: string;
-		EFC_32124_2775293581: string;
-		EFC_32124_4126798990: string;
 		npm_config_global_prefix: string;
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 		HOME: string;
-		HOMEPATH: string;
 		INIT_CWD: string;
 		Path: string;
 		npm_lifecycle_event: string;
@@ -276,6 +278,8 @@ declare module '$env/dynamic/private' {
 		npm_config_engine_strict: string;
 		npm_config_globalconfig: string;
 		npm_config_npm_version: string;
+		npm_config_prefix: string;
+		NPM_PREFIX_NPM_CLI_JS: string;
 		OS: string;
 		npm_config_user_agent: string;
 		npm_lifecycle_script: string;
@@ -283,8 +287,6 @@ declare module '$env/dynamic/private' {
 		npm_package_json: string;
 		npm_package_name: string;
 		NUMBER_OF_PROCESSORS: string;
-		NVM_HOME: string;
-		PATHEXT: string;
 		PROCESSOR_ARCHITECTURE: string;
 		PROCESSOR_LEVEL: string;
 		PROCESSOR_REVISION: string;

@@ -141,7 +141,7 @@
 
     // Load Existing Locations
     try {
-      const resLocs = await fetch('http://127.0.0.1:8000/api/map-locations');
+      const resLocs = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/map-locations`);
       if (resLocs.ok) {
         const jsonLocs = await resLocs.json();
         if (jsonLocs.success) {

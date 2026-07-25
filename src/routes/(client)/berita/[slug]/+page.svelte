@@ -15,7 +15,7 @@
     isError = false;
     try {
       // Fetch detail berita
-      const resDetail = await fetch(`http://127.0.0.1:8000/api/news/${currentSlug}`);
+      const resDetail = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/news/${currentSlug}`);
       const jsonDetail = await resDetail.json();
       
       if (resDetail.ok && jsonDetail.success) {
@@ -32,7 +32,7 @@
       }
 
       // Fetch berita lainnya (5 terbaru)
-      const resAll = await fetch('http://127.0.0.1:8000/api/news');
+      const resAll = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/news`);
       const jsonAll = await resAll.json();
       
       if (resAll.ok && jsonAll.success) {

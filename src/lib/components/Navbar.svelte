@@ -32,7 +32,7 @@
         if (data && data.logo_url) {
           let url = data.logo_url;
           if (!url.startsWith('http')) {
-            url = `http://localhost:8000${url.startsWith('/') ? '' : '/'}${url}`;
+            url = `${import.meta.env.VITE_PUBLIC_BACKEND_URL}${url.startsWith('/') ? '' : '/'}${url}`;
           }
           logoUrl = url;
 

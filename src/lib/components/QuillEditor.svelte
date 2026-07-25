@@ -28,7 +28,7 @@
 
           try {
             // Upload ke backend Laravel
-            const res = await fetch('http://127.0.0.1:8000/api/upload-image', {
+            const res = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/upload-image`, {
               method: 'POST',
               body: formData
             });

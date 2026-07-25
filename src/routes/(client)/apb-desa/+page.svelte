@@ -19,7 +19,7 @@
   // Fungsi ambil daftar tahun yang tersedia
   const fetchYears = async () => {
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/apb-desa');
+      const res = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/apb-desa`);
       const json = await res.json();
       if (res.ok && json.success && json.data.length > 0) {
         availableYears = json.data.map(item => item.year);
@@ -37,7 +37,7 @@
   const fetchApbByYear = async (year) => {
     isLoading = true;
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/apb-desa/${year}`);
+      const res = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/apb-desa/${year}`);
       const json = await res.json();
       if (res.ok && json.success && json.data.data) {
         currentData = json.data.data;

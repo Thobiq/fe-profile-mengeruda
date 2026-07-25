@@ -10,7 +10,7 @@
 
   onMount(async () => {
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/demographic');
+      const res = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/demographic`);
       const json = await res.json();
       if (res.ok && json.success) {
         demoData = json.data;

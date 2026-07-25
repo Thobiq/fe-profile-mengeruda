@@ -8,7 +8,7 @@
   // Ambil data dari backend saat komponen dimuat
   onMount(async () => {
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/news');
+      const res = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/news`);
       const json = await res.json();
       if (res.ok && json.success) {
         // Ambil 5 berita pertama, lalu format
