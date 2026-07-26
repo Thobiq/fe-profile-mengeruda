@@ -39,7 +39,6 @@
  */
 declare module '$env/static/private' {
 	export const VITE_PUBLIC_BACKEND_URL: string;
-	export const VITE_PUBLIC_SSO_URL: string;
 	export const npm_config_global_prefix: string;
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const ACLOCAL_PATH: string;
@@ -247,7 +246,6 @@ declare module '$env/static/public' {
 declare module '$env/dynamic/private' {
 	export const env: {
 		VITE_PUBLIC_BACKEND_URL: string;
-		VITE_PUBLIC_SSO_URL: string;
 		npm_config_global_prefix: string;
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 		ACLOCAL_PATH: string;

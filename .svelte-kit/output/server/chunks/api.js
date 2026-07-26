@@ -1,7 +1,7 @@
 import axios from "axios";
 //#region src/lib/api.js
 var api = axios.create({
-	baseURL: "http://localhost:8000",
+	baseURL: "https://api.mengeruda.id",
 	withCredentials: true,
 	headers: { "Accept": "application/json" }
 });
