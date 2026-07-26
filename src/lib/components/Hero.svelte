@@ -1,10 +1,20 @@
 <script>
   let { galleries = [] } = $props();
 
+  const getHeroImgUrl = (item) => {
+    if (item.image_url && item.image_url.startsWith('http')) return item.image_url;
+    const path = item.image_path || item.image_url || '';
+    if (!path) return '/hero-1.jpg';
+    if (path.startsWith('http')) return path;
+    const clean = path.replace(/^\/?storage\//, '').replace(/^\//, '');
+    const backend = import.meta.env.VITE_PUBLIC_BACKEND_URL || (import.meta.env.PROD ? 'https://api.mengeruda.id' : 'http://localhost:8000');
+    return `${backend}/storage/${clean}`;
+  };
+
   // Ambil maksimal 5 gambar terbaru dari galeri
   let images = $derived(
     galleries && galleries.length > 0 
-      ? galleries.slice(0, 5).map(g => g.image_path.startsWith('http') ? g.image_path : `/storage/${g.image_path.replace('/storage/', '')}`)
+      ? galleries.slice(0, 5).map(g => getHeroImgUrl(g))
       : ['/hero-1.jpg', '/sinergi-mahasiswa-kkn.jpeg', '/diskusi-kantor-desa.png']
   );
 

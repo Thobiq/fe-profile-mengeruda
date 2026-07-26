@@ -3,7 +3,14 @@ import { T as escape_html, a as ensure_array_like, f as html, i as derived, l as
 function Hero($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		let { galleries = [] } = $$props;
-		let images = derived(() => galleries && galleries.length > 0 ? galleries.slice(0, 5).map((g) => g.image_path.startsWith("http") ? g.image_path : `/storage/${g.image_path.replace("/storage/", "")}`) : [
+		const getHeroImgUrl = (item) => {
+			if (item.image_url && item.image_url.startsWith("http")) return item.image_url;
+			const path = item.image_path || item.image_url || "";
+			if (!path) return "/hero-1.jpg";
+			if (path.startsWith("http")) return path;
+			return `https://api.mengeruda.id/storage/${path.replace(/^\/?storage\//, "").replace(/^\//, "")}`;
+		};
+		let images = derived(() => galleries && galleries.length > 0 ? galleries.slice(0, 5).map((g) => getHeroImgUrl(g)) : [
 			"/hero-1.jpg",
 			"/sinergi-mahasiswa-kkn.jpeg",
 			"/diskusi-kantor-desa.png"
@@ -258,9 +265,16 @@ function BeritaDesa($$renderer, $$props) {
 function GaleriHome($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		let { galleries = [] } = $$props;
+		const getGaleriUrl = (item) => {
+			if (item.image_url && item.image_url.startsWith("http")) return item.image_url;
+			const path = item.image_path || item.image_url || "";
+			if (!path) return "/hero-1.jpg";
+			if (path.startsWith("http")) return path;
+			return `https://api.mengeruda.id/storage/${path.replace(/^\/?storage\//, "").replace(/^\//, "")}`;
+		};
 		let formattedGalleries = derived(() => galleries && galleries.length > 0 ? galleries.map((g) => ({
-			img: g.image_path.startsWith("http") ? g.image_path : `/storage/${g.image_path.replace("/storage/", "")}`,
-			title: g.title
+			img: getGaleriUrl(g),
+			title: g.title || "Galeri Desa Mengeruda"
 		})) : [
 			{
 				img: "/hero-1.jpg",

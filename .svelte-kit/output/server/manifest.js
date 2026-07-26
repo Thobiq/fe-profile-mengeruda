@@ -10,7 +10,7 @@ return {
 	assets: new Set(["acara-adat-resepsi.png","Batas_Desa.json","berangkat-sekolah.jpeg","diskusi-kantor-desa.png","Fasilitas_Desa_Mengeruda.json","hero-1.jpg","hero-2.png","icon-apbd.png","Jalan_Desa_Mengeruda.json","karang-taruna.png","kunjungan-mahasiswa-sekolah.jpeg","logo.png","menjemur-padi.jpeg","mpls-satap.png","peta-mengeruda.png","produk-tempe.png","robots.txt","sinergi-mahasiswa-kkn.jpeg","user-placeholder.png","wisata-air-panas.jpeg"]),
 	mimeTypes: {".png":"image/png",".json":"application/json",".jpeg":"image/jpeg",".jpg":"image/jpeg",".txt":"text/plain"},
 	_: {
-		client: {start:"_app/immutable/entry/start.B6B2IWYB.js",app:"_app/immutable/entry/app.DTB2292o.js",imports:["_app/immutable/entry/start.B6B2IWYB.js","_app/immutable/chunks/BqUWGYD4.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/entry/app.DTB2292o.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/chunks/HclGiUj8.js","_app/immutable/chunks/xihTtKlq.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:true},
+		client: {start:"_app/immutable/entry/start.CnWQflUX.js",app:"_app/immutable/entry/app.DFEJMZy9.js",imports:["_app/immutable/entry/start.CnWQflUX.js","_app/immutable/chunks/Cg3CuDVc.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/entry/app.DFEJMZy9.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/chunks/HclGiUj8.js","_app/immutable/chunks/xihTtKlq.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:true},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),

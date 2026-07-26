@@ -1,11 +1,21 @@
 <script>
   let { galleries = [] } = $props();
 
+  const getGaleriUrl = (item) => {
+    if (item.image_url && item.image_url.startsWith('http')) return item.image_url;
+    const path = item.image_path || item.image_url || '';
+    if (!path) return '/hero-1.jpg';
+    if (path.startsWith('http')) return path;
+    const clean = path.replace(/^\/?storage\//, '').replace(/^\//, '');
+    const backend = import.meta.env.VITE_PUBLIC_BACKEND_URL || (import.meta.env.PROD ? 'https://api.mengeruda.id' : 'http://localhost:8000');
+    return `${backend}/storage/${clean}`;
+  };
+
   let formattedGalleries = $derived(
     galleries && galleries.length > 0
       ? galleries.map(g => ({
-          img: g.image_path.startsWith('http') ? g.image_path : `/storage/${g.image_path.replace('/storage/', '')}`,
-          title: g.title
+          img: getGaleriUrl(g),
+          title: g.title || 'Galeri Desa Mengeruda'
         }))
       : [
           { img: '/hero-1.jpg', title: 'Pemandangan Bukit Savana Mengeruda' },

@@ -28,9 +28,9 @@
     "file": "chunks/api.js",
     "name": "api"
   },
-  "_app.DUcgiF9e.css": {
-    "file": "_app/immutable/assets/app.DUcgiF9e.css",
-    "src": "_app.DUcgiF9e.css"
+  "_app.BHNAOZry.css": {
+    "file": "_app/immutable/assets/app.BHNAOZry.css",
+    "src": "_app.BHNAOZry.css"
   },
   "_client.js": {
     "file": "chunks/client.js",
@@ -149,7 +149,7 @@
       "_api.js"
     ],
     "css": [
-      "_app/immutable/assets/app.DUcgiF9e.css"
+      "_app/immutable/assets/app.BHNAOZry.css"
     ]
   },
   "src/routes/(client)/+page.js": {
@@ -276,7 +276,7 @@
       "_stores.js"
     ],
     "css": [
-      "_app/immutable/assets/app.DUcgiF9e.css"
+      "_app/immutable/assets/app.BHNAOZry.css"
     ]
   },
   "src/routes/admin/+layout.svelte": {
@@ -343,7 +343,8 @@
     "isEntry": true,
     "imports": [
       "_index-server.js",
-      "_server.js"
+      "_server.js",
+      "_api.js"
     ]
   },
   "src/routes/admin/berita/tambah/+page.svelte": {

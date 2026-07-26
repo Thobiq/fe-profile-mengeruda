@@ -1,5 +1,6 @@
 import "../../../../chunks/index-server.js";
 import { T as escape_html, a as ensure_array_like, i as derived, o as head, w as attr } from "../../../../chunks/server.js";
+import "../../../../chunks/api.js";
 //#region src/routes/admin/berita/+page.svelte
 function _page($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
@@ -42,7 +43,9 @@ function _page($$renderer, $$props) {
 			$$renderer.push("<!--[0-->");
 			$$renderer.push(`<tr><td colspan="4" class="py-8 text-center text-gray-500 font-medium">Data berita tidak ditemukan.</td></tr>`);
 		} else $$renderer.push("<!--[-1-->");
-		$$renderer.push(`<!--]--></tbody></table></div></div>`);
+		$$renderer.push(`<!--]--></tbody></table></div></div> `);
+		$$renderer.push("<!--[-1-->");
+		$$renderer.push(`<!--]-->`);
 	});
 }
 //#endregion

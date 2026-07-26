@@ -5,7 +5,14 @@ import "d3-org-chart";
 function HeroProfile($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		let { galleries = [] } = $$props;
-		let images = derived(() => galleries && galleries.length > 0 ? galleries.slice(0, 5).map((g) => g.image_path.startsWith("http") ? g.image_path : `/storage/${g.image_path.replace("/storage/", "")}`) : ["/hero-1.jpg", "/hero-2.png"]);
+		const getProfileHeroImgUrl = (item) => {
+			if (item.image_url && item.image_url.startsWith("http")) return item.image_url;
+			const path = item.image_path || item.image_url || "";
+			if (!path) return "/hero-1.jpg";
+			if (path.startsWith("http")) return path;
+			return `https://api.mengeruda.id/storage/${path.replace(/^\/?storage\//, "").replace(/^\//, "")}`;
+		};
+		let images = derived(() => galleries && galleries.length > 0 ? galleries.slice(0, 5).map((g) => getProfileHeroImgUrl(g)) : ["/hero-1.jpg", "/hero-2.png"]);
 		let currentIndex = 0;
 		$$renderer.push(`<div class="max-w-[1500px] mx-auto px-6 w-full pt-10 pb-8"><h1 class="text-center text-4xl md:text-[44px] font-serif font-bold text-black mb-10">Profil Desa Mengeruda</h1> <div class="relative w-full h-[400px] md:h-[550px] rounded-[2rem] overflow-hidden shadow-xl"><!--[-->`);
 		const each_array = ensure_array_like(images());
