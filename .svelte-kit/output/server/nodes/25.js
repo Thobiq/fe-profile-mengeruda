@@ -1,12 +1,6 @@
 
 
 export const index = 25;
-export const universal = {
-  "ssr": false,
-  "prerender": true,
-  "load": null
-};
-export const universal_id = "src/routes/struktur-organisasi/+page.js";
-export const imports = ["_app/immutable/nodes/25.BUdcsssy.js","_app/immutable/chunks/BJZZ1NVH.js","_app/immutable/chunks/xihTtKlq.js","_app/immutable/chunks/l_OTBziO.js"];
+export const imports = ["_app/immutable/nodes/25.BF6y7kWA.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/chunks/xihTtKlq.js","_app/immutable/chunks/_NL0z4jB.js","_app/immutable/chunks/QfLOjW-j.js","_app/immutable/chunks/BaGh9SzZ.js"];
 export const stylesheets = [];
 export const fonts = [];

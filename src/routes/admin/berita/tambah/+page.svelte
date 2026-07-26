@@ -81,7 +81,16 @@
       }
     } catch (err) {
       console.error("Error simpan berita:", err);
-      modalMessage = "Terjadi kesalahan sistem saat menyimpan berita.";
+      let errMsg = "Terjadi kesalahan sistem saat menyimpan berita.";
+      if (err.response && err.response.data) {
+        if (err.response.data.errors) {
+          const firstErrKey = Object.keys(err.response.data.errors)[0];
+          errMsg = err.response.data.errors[firstErrKey][0];
+        } else if (err.response.data.message) {
+          errMsg = err.response.data.message;
+        }
+      }
+      modalMessage = "Gagal menyimpan berita: " + errMsg;
       isSuccess = false;
       showModal = true;
     } finally {

@@ -1,5 +1,5 @@
 import "../../../../../chunks/index-server.js";
-import { E as escape_html, c as store_get, i as derived, o as head, u as unsubscribe_stores } from "../../../../../chunks/server.js";
+import { T as escape_html, c as store_get, i as derived, o as head, u as unsubscribe_stores } from "../../../../../chunks/server.js";
 import { t as page } from "../../../../../chunks/stores.js";
 //#region src/routes/(client)/berita/[slug]/+page.svelte
 function _page($$renderer, $$props) {

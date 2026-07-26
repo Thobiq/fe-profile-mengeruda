@@ -1,4 +1,8 @@
 <script>
+  import { onMount } from 'svelte';
+  import { page } from '$app/stores';
+  import api, { fetchCsrfCookie } from '$lib/api';
+
   const bgImages = [
     '/hero-1.jpg',
     '/hero-2.png',
@@ -8,6 +12,17 @@
   let showPassword = $state(false);
   let email = $state('');
   let password = $state('');
+  let isLoading = $state(false);
+  let errorMessage = $state('');
+  let successMessage = $state('');
+  let redirectTo = $state('/admin');
+
+  onMount(() => {
+    const redirectParam = $page.url.searchParams.get('redirect_to');
+    if (redirectParam && redirectParam.startsWith('/admin')) {
+      redirectTo = redirectParam;
+    }
+  });
 
   $effect(() => {
     const interval = setInterval(() => {
@@ -16,14 +31,42 @@
     return () => clearInterval(interval);
   });
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
-    console.log("Login Data:", { email, password });
+    if (!email || !password) {
+      errorMessage = 'Email dan Password wajib diisi.';
+      return;
+    }
+
+    isLoading = true;
+    errorMessage = '';
+    successMessage = '';
+
+    try {
+      await fetchCsrfCookie();
+      const res = await api.post('/api/login', { email, password });
+
+      if (res.data.success) {
+        successMessage = 'Login berhasil! Menyiapkan dasbor...';
+        setTimeout(() => {
+          window.location.href = redirectTo;
+        }, 800);
+      } else {
+        errorMessage = res.data.message || 'Login gagal, periksa email dan password.';
+        isLoading = false;
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      errorMessage =
+        err.response?.data?.message ||
+        'Terjadi kesalahan saat terhubung ke server. Pastikan backend Laravel berjalan.';
+      isLoading = false;
+    }
   }
 </script>
 
 <svelte:head>
-  <title>Login Admin - Desa Mengeruda</title>
+  <title>Login Admin - Profil Desa Mengeruda</title>
 </svelte:head>
 
 <div class="relative min-h-screen w-full flex items-center justify-center overflow-hidden font-serif py-10 px-4">
@@ -37,100 +80,120 @@
   {/each}
   
   <!-- Overlay gelap agar background tidak terlalu mendominasi -->
-  <div class="absolute inset-0 bg-black/30 z-0"></div>
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-0"></div>
 
-  <!-- ========================================== -->
-  <!-- SPLIT CARD CONTAINER -->
-  <!-- ========================================== -->
-  <!-- flex-col (HP) dan md:flex-row (Laptop) memastikan tampilan responsif -->
-  <div class="relative z-10 w-full max-w-[900px] flex flex-col md:flex-row rounded-[2rem] overflow-hidden shadow-2xl">
-    
-    <!-- SISI KIRI: Branding (Putih) -->
-    <div class="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-12 md:p-16">
-      <!-- Pastikan file logo-desa.png ada di folder static -->
-      <img src="/logo-desa.png" alt="Logo Desa" class="w-40 md:w-48 h-auto object-contain mb-6" />
-      <h1 class="text-4xl md:text-[42px] font-bold text-[#006430] text-center leading-tight">
-        Desa<br/>Mengeruda
+  <!-- Login Card (Glassmorphism & Gold Accent) -->
+  <div class="relative z-10 w-full max-w-md bg-stone-900/80 backdrop-blur-xl border border-amber-500/30 rounded-3xl p-8 shadow-2xl text-white">
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400/40 text-amber-400 mb-3 shadow-lg">
+        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+      </div>
+      <h1 class="text-2xl font-bold tracking-wide text-amber-400 font-serif">
+        Desa Mengeruda
       </h1>
+      <p class="text-xs text-stone-300 mt-1 font-sans">
+        Portal Administrasi & Profil Desa
+      </p>
     </div>
 
-    <!-- SISI KANAN: Form Login (Hijau) -->
-    <!-- Menggunakan gradasi hijau agar tidak terlalu flat -->
-    <div class="w-full md:w-1/2 bg-gradient-to-br from-[#008f45] to-[#004f25] p-10 md:p-14 flex flex-col justify-center">
-      
-      <h2 class="text-white text-4xl md:text-[40px] font-bold text-center mb-10 drop-shadow-sm">
-        Login
-      </h2>
+    <!-- Alert Error / Success -->
+    {#if errorMessage}
+      <div class="mb-5 p-3.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-200 text-xs flex items-center gap-2 font-sans">
+        <svg class="w-4 h-4 shrink-0 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{errorMessage}</span>
+      </div>
+    {/if}
 
-      <form onsubmit={handleLogin} class="w-full flex flex-col gap-6">
-        
-        <!-- Input Email -->
-        <div class="flex flex-col gap-2">
-          <label class="text-white text-[15px] md:text-base font-bold drop-shadow-sm">
-            Email
-          </label>
-          <input 
-            type="email" 
-            bind:value={email} 
-            placeholder="Masukkan Email" 
-            class="w-full bg-transparent border-[1.5px] border-white rounded-full px-6 py-3.5 text-white placeholder-white/80 outline-none focus:bg-white/10 transition-all font-sans text-base"
-            required 
+    {#if successMessage}
+      <div class="mb-5 p-3.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 text-xs flex items-center gap-2 font-sans">
+        <svg class="w-4 h-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{successMessage}</span>
+      </div>
+    {/if}
+
+    <!-- Form -->
+    <form onsubmit={handleLogin} class="space-y-4 font-sans">
+      <div>
+        <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-stone-300 mb-1.5">
+          Email Administrator
+        </label>
+        <input
+          id="email"
+          type="email"
+          bind:value={email}
+          required
+          placeholder="admin@mengeruda.id"
+          class="w-full px-4 py-3 bg-stone-950/70 border border-stone-700 rounded-xl text-white placeholder-stone-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/50 transition text-sm"
+        />
+      </div>
+
+      <div>
+        <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-stone-300 mb-1.5">
+          Kata Sandi
+        </label>
+        <div class="relative">
+          <input
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            bind:value={password}
+            required
+            placeholder="••••••••"
+            class="w-full pl-4 pr-11 py-3 bg-stone-950/70 border border-stone-700 rounded-xl text-white placeholder-stone-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/50 transition text-sm"
           />
+          <button
+            type="button"
+            onclick={() => (showPassword = !showPassword)}
+            class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-stone-400 hover:text-white transition"
+          >
+            {#if showPassword}
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+              </svg>
+            {:else}
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            {/if}
+          </button>
         </div>
+      </div>
 
-        <!-- Input Password -->
-        <div class="flex flex-col gap-2">
-          <label class="text-white text-[15px] md:text-base font-bold drop-shadow-sm">
-            Password
-          </label>
-          <div class="relative flex items-center">
-            <input 
-              type={showPassword ? "text" : "password"} 
-              bind:value={password} 
-              placeholder="Masukkan Password" 
-              class="w-full bg-transparent border-[1.5px] border-white rounded-full pl-6 pr-14 py-3.5 text-white placeholder-white/80 outline-none focus:bg-white/10 transition-all font-sans text-base"
-              required 
-            />
-            
-            <button 
-              type="button" 
-              onclick={() => showPassword = !showPassword} 
-              class="absolute right-5 text-white hover:text-gray-200 transition-colors"
-            >
-              {#if showPassword}
-                <!-- Ikon Eye Slash -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-[22px] h-[22px]">
-                  <path d="M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM22.676 12.553a11.249 11.249 0 01-2.631 4.31l-3.099-3.099a5.25 5.25 0 00-6.71-6.71L7.759 4.577a11.217 11.217 0 014.242-.827c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113z" />
-                  <path d="M15.75 12c0 .18-.013.357-.037.53l-4.244-4.243A3.75 3.75 0 0115.75 12zM12.53 15.713l-4.243-4.244a3.75 3.75 0 004.243 4.243z" />
-                  <path d="M6.75 12c0-.619.143-1.205.396-1.728l-2.73-2.73A11.218 11.218 0 001.324 11.447a1.25 1.25 0 000 1.113c1.49 4.467 5.705 7.69 10.675 7.69 1.547 0 3.018-.313 4.354-.877l-2.784-2.784a3.75 3.75 0 01-6.818-4.59z" />
-                </svg>
-              {:else}
-                <!-- Ikon Eye -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-[22px] h-[22px]">
-                  <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                  <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
-                </svg>
-              {/if}
-            </button>
-          </div>
-        </div>
+      <button
+        type="submit"
+        disabled={isLoading}
+        class="w-full py-3.5 mt-2 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-stone-950 font-bold rounded-xl shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 disabled:opacity-50 transition-all text-sm flex items-center justify-center gap-2"
+      >
+        {#if isLoading}
+          <svg class="animate-spin h-4 w-4 text-stone-950" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span>Memverifikasi...</span>
+        {:else}
+          <span>Masuk Sekarang</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        {/if}
+      </button>
+    </form>
 
-        <!-- Link Lupa Password -->
-        <div class="flex justify-end mt-[-8px]">
-          <a href="#lupa" class="text-white text-[13px] md:text-[14px] font-bold hover:text-gray-200 transition-colors drop-shadow-sm">
-            Lupa Password ?
-          </a>
-        </div>
-
-        <!-- Tombol Login (Putih dengan Teks Hijau) -->
-        <button 
-          type="submit" 
-          class="w-full bg-white text-[#006430] hover:bg-gray-100 font-bold text-xl py-3.5 rounded-full shadow-lg transition-all duration-300 transform hover:scale-[1.02] mt-2 tracking-wide"
-        >
-          Login
-        </button>
-
-      </form>
+    <!-- Back to Home -->
+    <div class="mt-6 pt-5 border-t border-stone-800 text-center font-sans">
+      <a href="/" class="text-xs text-stone-400 hover:text-amber-400 transition inline-flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span>Kembali ke Website Utama</span>
+      </a>
     </div>
   </div>
 </div>

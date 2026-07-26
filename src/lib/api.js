@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_PUBLIC_BACKEND_URL || 'http://127.0.0.1:8000',
+    baseURL: import.meta.env.DEV ? '' : (import.meta.env.VITE_PUBLIC_BACKEND_URL || 'http://localhost:8000'),
     withCredentials: true,
     headers: {
         'Accept': 'application/json'

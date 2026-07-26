@@ -5,6 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
 		%sveltekit.head%
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 		<style>
 			#splash-screen {
 				position: fixed;
@@ -16,6 +19,7 @@
 				align-items: center;
 				justify-content: center;
 				transition: opacity 0.8s ease-in-out, visibility 0.8s;
+				font-family: 'Montserrat', sans-serif;
 			}
 			.splash-circle {
 				width: 110px;
@@ -35,13 +39,14 @@
 				padding: 10px;
 			}
 			.splash-title {
-				font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+				font-family: 'Montserrat', sans-serif;
 				font-size: 32px;
 				font-weight: 700;
 				color: #15803d;
 				text-align: center;
 				line-height: 1.2;
 				margin-bottom: 20px;
+				letter-spacing: -0.02em;
 			}
 			.splash-loading-area {
 				display: flex;

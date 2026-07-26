@@ -10,6 +10,8 @@
   let isCheckingAuth = $state(true);
   let userPermissions = $state([]);
   let isUnauthorized = $state(false);
+  let logoUrl = $state('/logo.png');
+  let namaDesa = $state('Desa Mengeruda');
 
   // Daftar menu sidebar
   const allMenus = [
@@ -92,7 +94,26 @@
 
   onMount(async () => {
     try {
-      const response = await api.get('/api/sso/user');
+      const resProfile = await api.get('/api/village-profile');
+      const d = resProfile.data?.data || resProfile.data;
+      if (d) {
+        if (d.nama_desa) {
+          namaDesa = `Desa ${d.nama_desa}`;
+        }
+        if (d.logo_url) {
+          let url = d.logo_url;
+          if (!url.startsWith('http')) {
+            url = `${import.meta.env.VITE_PUBLIC_BACKEND_URL}${url.startsWith('/') ? '' : '/'}${url}`;
+          }
+          logoUrl = url;
+        }
+      }
+    } catch (e) {
+      console.error('Gagal memuat logo profil di admin layout:', e);
+    }
+
+    try {
+      const response = await api.get('/api/user');
       if (response.data.success) {
         // Ekstrak list of permissions
         let perms = [];
@@ -121,27 +142,26 @@
             }
         }
       } else {
-        redirectToSSO();
+        redirectToLogin();
       }
     } catch (err) {
       console.error('Auth check failed:', err);
-      redirectToSSO();
+      redirectToLogin();
     }
   });
 
-  const redirectToSSO = () => {
-    // Redirect ke SSO dengan menyertakan return URL saat ini
-    const currentUrl = window.location.href;
-    const ssoUrl = import.meta.env.VITE_PUBLIC_SSO_URL || 'http://localhost:5174';
-    window.location.href = `${ssoUrl}/?redirect_to=${encodeURIComponent(currentUrl)}`;
+  const redirectToLogin = () => {
+    const currentUrl = window.location.pathname + window.location.search;
+    window.location.href = `/login?redirect_to=${encodeURIComponent(currentUrl)}`;
   };
 
   const handleLogout = async () => {
     try {
-      await api.post('/api/sso/logout');
-      redirectToSSO();
+      await api.post('/api/logout');
     } catch (err) {
       console.error('Logout failed:', err);
+    } finally {
+      redirectToLogin();
     }
   };
 </script>
@@ -176,11 +196,11 @@
   `}>
     <!-- Logo & Title -->
     <div class="flex items-center gap-3 px-6 py-8">
-      <div class="w-12 h-12 bg-white rounded-full p-1 flex items-center justify-center shrink-0">
-        <img src="/logo.png" alt="Logo" class="w-full h-full object-contain" />
+      <div class="w-12 h-12 bg-white rounded-full p-1 flex items-center justify-center shrink-0 shadow-sm overflow-hidden border border-white/20">
+        <img src={logoUrl} alt="Logo {namaDesa}" class="w-full h-full object-contain" />
       </div>
       <div>
-        <h2 class="font-bold text-[17px] leading-tight">Desa Mengeruda</h2>
+        <h2 class="font-bold text-[17px] leading-tight">{namaDesa}</h2>
         <p class="text-[13px] text-white/80 font-medium">Admin Panel</p>
       </div>
     </div>
@@ -254,9 +274,9 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
           </div>
-          <h2 class="text-2xl font-bold font-serif text-gray-800 mb-2">Akses Ditolak</h2>
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">Akses Ditolak</h2>
           <p class="text-gray-500 max-w-md mx-auto mb-6">Maaf, akun Anda tidak memiliki izin untuk mengakses halaman ini. Silakan kembali ke Dashboard atau hubungi Administrator.</p>
-          <a href="/admin" class="bg-[#006e33] hover:bg-[#005225] text-white px-6 py-2.5 rounded-xl font-bold font-serif transition-colors">Kembali ke Dashboard</a>
+          <a href="/admin" class="bg-[#006e33] hover:bg-[#005225] text-white px-6 py-2.5 rounded-xl font-bold transition-colors">Kembali ke Dashboard</a>
         </div>
       {:else}
         {@render children()}

@@ -10,7 +10,7 @@ return {
 	assets: new Set(["acara-adat-resepsi.png","Batas_Desa.json","berangkat-sekolah.jpeg","diskusi-kantor-desa.png","Fasilitas_Desa_Mengeruda.json","hero-1.jpg","hero-2.png","icon-apbd.png","Jalan_Desa_Mengeruda.json","karang-taruna.png","kunjungan-mahasiswa-sekolah.jpeg","logo.png","menjemur-padi.jpeg","mpls-satap.png","peta-mengeruda.png","produk-tempe.png","robots.txt","sinergi-mahasiswa-kkn.jpeg","user-placeholder.png","wisata-air-panas.jpeg"]),
 	mimeTypes: {".png":"image/png",".json":"application/json",".jpeg":"image/jpeg",".jpg":"image/jpeg",".txt":"text/plain"},
 	_: {
-		client: {start:"_app/immutable/entry/start.epsB9Od1.js",app:"_app/immutable/entry/app.Dogk6WNg.js",imports:["_app/immutable/entry/start.epsB9Od1.js","_app/immutable/chunks/CUiGMxns.js","_app/immutable/chunks/BJZZ1NVH.js","_app/immutable/entry/app.Dogk6WNg.js","_app/immutable/chunks/BJZZ1NVH.js","_app/immutable/chunks/HclGiUj8.js","_app/immutable/chunks/xihTtKlq.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:true},
+		client: {start:"_app/immutable/entry/start.BpGzbNmB.js",app:"_app/immutable/entry/app.CKubKaJU.js",imports:["_app/immutable/entry/start.BpGzbNmB.js","_app/immutable/chunks/QfLOjW-j.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/entry/app.CKubKaJU.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/chunks/HclGiUj8.js","_app/immutable/chunks/xihTtKlq.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:true},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),
@@ -37,7 +37,8 @@ return {
 			__memo(() => import('./nodes/22.js')),
 			__memo(() => import('./nodes/23.js')),
 			__memo(() => import('./nodes/24.js')),
-			__memo(() => import('./nodes/25.js'))
+			__memo(() => import('./nodes/25.js')),
+			__memo(() => import('./nodes/26.js'))
 		],
 		remotes: {
 			
@@ -107,31 +108,38 @@ return {
 				endpoint: null
 			},
 			{
+				id: "/admin/login",
+				pattern: /^\/admin\/login\/?$/,
+				params: [],
+				page: { layouts: [0,3,], errors: [1,,], leaf: 20 },
+				endpoint: null
+			},
+			{
 				id: "/admin/peta",
 				pattern: /^\/admin\/peta\/?$/,
 				params: [],
-				page: { layouts: [0,3,], errors: [1,,], leaf: 20 },
+				page: { layouts: [0,3,], errors: [1,,], leaf: 21 },
 				endpoint: null
 			},
 			{
 				id: "/admin/peta/form",
 				pattern: /^\/admin\/peta\/form\/?$/,
 				params: [],
-				page: { layouts: [0,3,], errors: [1,,], leaf: 21 },
+				page: { layouts: [0,3,], errors: [1,,], leaf: 22 },
 				endpoint: null
 			},
 			{
 				id: "/admin/profil-desa",
 				pattern: /^\/admin\/profil-desa\/?$/,
 				params: [],
-				page: { layouts: [0,3,], errors: [1,,], leaf: 22 },
+				page: { layouts: [0,3,], errors: [1,,], leaf: 23 },
 				endpoint: null
 			},
 			{
 				id: "/admin/struktur-organisasi",
 				pattern: /^\/admin\/struktur-organisasi\/?$/,
 				params: [],
-				page: { layouts: [0,3,], errors: [1,,], leaf: 23 },
+				page: { layouts: [0,3,], errors: [1,,], leaf: 24 },
 				endpoint: null
 			},
 			{
@@ -166,7 +174,7 @@ return {
 				id: "/login",
 				pattern: /^\/login\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 24 },
+				page: { layouts: [0,], errors: [1,], leaf: 25 },
 				endpoint: null
 			},
 			{
@@ -187,7 +195,7 @@ return {
 				id: "/struktur-organisasi",
 				pattern: /^\/struktur-organisasi\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 25 },
+				page: { layouts: [0,], errors: [1,], leaf: 26 },
 				endpoint: null
 			},
 			{

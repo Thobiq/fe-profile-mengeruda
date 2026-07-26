@@ -1,6 +1,6 @@
 
 
 export const index = 22;
-export const imports = ["_app/immutable/nodes/22.8sIjh_iF.js","_app/immutable/chunks/BJZZ1NVH.js","_app/immutable/chunks/xihTtKlq.js","_app/immutable/chunks/CqZ7gWmv.js","_app/immutable/chunks/B1wI3aDv.js","_app/immutable/chunks/bRdHEEn1.js","_app/immutable/chunks/HclGiUj8.js"];
-export const stylesheets = ["_app/immutable/assets/QuillEditor.CRoDdpn2.css"];
+export const imports = ["_app/immutable/nodes/22.DSrOyJyD.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/chunks/HclGiUj8.js","_app/immutable/chunks/xihTtKlq.js","_app/immutable/chunks/_NL0z4jB.js","_app/immutable/chunks/QfLOjW-j.js","_app/immutable/chunks/BaGh9SzZ.js","_app/immutable/chunks/C0klCF_Z.js"];
+export const stylesheets = [];
 export const fonts = [];

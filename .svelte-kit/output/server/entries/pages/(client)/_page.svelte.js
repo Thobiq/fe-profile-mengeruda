@@ -1,4 +1,4 @@
-import { E as escape_html, a as ensure_array_like, f as html, i as derived, l as stringify, n as attr_style, o as head, w as attr } from "../../../chunks/server.js";
+import { T as escape_html, a as ensure_array_like, f as html, i as derived, l as stringify, n as attr_style, o as head, w as attr } from "../../../chunks/server.js";
 //#region src/lib/components/Hero.svelte
 function Hero($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
@@ -205,15 +205,15 @@ function BeritaDesa($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		let { news = [] } = $$props;
 		let daftarBerita = derived(() => news && news.length > 0 ? news.slice(0, 4).map((b) => ({
-			title: b.title,
-			date: new Date(b.created_at).toLocaleDateString("id-ID", {
+			title: b.judul || b.title || "Tanpa Judul",
+			date: b.created_at ? new Date(b.created_at).toLocaleDateString("id-ID", {
 				day: "2-digit",
 				month: "2-digit",
 				year: "numeric"
-			}),
-			excerpt: b.content.replace(/<[^>]*>?/gm, "").substring(0, 100) + "...",
-			img: b.image_url ? b.image_url.startsWith("http") ? b.image_url : `/storage/${b.image_url.replace("/storage/", "")}` : "/hero-2.png",
-			slug: b.slug || b.id.toString()
+			}) : "",
+			excerpt: (b.content || "").replace(/<[^>]*>?/gm, "").substring(0, 100) + "...",
+			img: b.banner_url || (b.banner ? b.banner.startsWith("http") ? b.banner : `/storage/${b.banner.replace("/storage/", "")}` : null) || b.image_url || "/hero-2.png",
+			slug: b.slug || (b.id ? b.id.toString() : "")
 		})) : [
 			{
 				title: "Koordinasi Pemerintah Desa dengan Mahasiswa KKN",

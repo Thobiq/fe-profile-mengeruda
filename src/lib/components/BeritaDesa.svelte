@@ -4,11 +4,11 @@
   let daftarBerita = $derived(
     news && news.length > 0 
       ? news.slice(0, 4).map(b => ({
-          title: b.title,
-          date: new Date(b.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }),
-          excerpt: b.content.replace(/<[^>]*>?/gm, '').substring(0, 100) + '...',
-          img: b.image_url ? (b.image_url.startsWith('http') ? b.image_url : `/storage/${b.image_url.replace('/storage/', '')}`) : '/hero-2.png',
-          slug: b.slug || b.id.toString()
+          title: b.judul || b.title || 'Tanpa Judul',
+          date: b.created_at ? new Date(b.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '',
+          excerpt: (b.content || '').replace(/<[^>]*>?/gm, '').substring(0, 100) + '...',
+          img: b.banner_url || (b.banner ? (b.banner.startsWith('http') ? b.banner : `/storage/${b.banner.replace('/storage/', '')}`) : null) || b.image_url || '/hero-2.png',
+          slug: b.slug || (b.id ? b.id.toString() : '')
         }))
       : [
           {

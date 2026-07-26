@@ -29,7 +29,7 @@ declare module "$app/types" {
 	type MatcherParam<M> = M extends (param : string) => param is (infer U extends string) ? U : string;
 
 	export interface AppTypes {
-		RouteId(): "/(client)" | "/" | "/admin" | "/admin/administrator" | "/admin/apb-desa" | "/admin/apb-desa/form" | "/admin/berita" | "/admin/berita/tambah" | "/admin/demografi" | "/admin/galeri" | "/admin/peta" | "/admin/peta/form" | "/admin/profil-desa" | "/admin/struktur-organisasi" | "/(client)/apb-desa" | "/(client)/berita" | "/(client)/berita/[slug]" | "/(client)/demografi" | "/login" | "/(client)/peta" | "/(client)/profil" | "/struktur-organisasi" | "/(client)/wisata-umkm";
+		RouteId(): "/(client)" | "/" | "/admin" | "/admin/administrator" | "/admin/apb-desa" | "/admin/apb-desa/form" | "/admin/berita" | "/admin/berita/tambah" | "/admin/demografi" | "/admin/galeri" | "/admin/login" | "/admin/peta" | "/admin/peta/form" | "/admin/profil-desa" | "/admin/struktur-organisasi" | "/(client)/apb-desa" | "/(client)/berita" | "/(client)/berita/[slug]" | "/(client)/demografi" | "/login" | "/(client)/peta" | "/(client)/profil" | "/struktur-organisasi" | "/(client)/wisata-umkm";
 		RouteParams(): {
 			"/(client)/berita/[slug]": { slug: string }
 		};
@@ -44,6 +44,7 @@ declare module "$app/types" {
 			"/admin/berita/tambah": Record<string, never>;
 			"/admin/demografi": Record<string, never>;
 			"/admin/galeri": Record<string, never>;
+			"/admin/login": Record<string, never>;
 			"/admin/peta": Record<string, never>;
 			"/admin/peta/form": Record<string, never>;
 			"/admin/profil-desa": Record<string, never>;
@@ -58,7 +59,7 @@ declare module "$app/types" {
 			"/struktur-organisasi": Record<string, never>;
 			"/(client)/wisata-umkm": Record<string, never>
 		};
-		Pathname(): "/" | "/admin" | "/admin/administrator" | "/admin/apb-desa" | "/admin/apb-desa/form" | "/admin/berita" | "/admin/berita/tambah" | "/admin/demografi" | "/admin/galeri" | "/admin/peta" | "/admin/peta/form" | "/admin/profil-desa" | "/admin/struktur-organisasi" | "/apb-desa" | "/berita" | `/berita/${string}` & {} | "/demografi" | "/login" | "/peta" | "/profil" | "/struktur-organisasi" | "/wisata-umkm";
+		Pathname(): "/" | "/admin" | "/admin/administrator" | "/admin/apb-desa" | "/admin/apb-desa/form" | "/admin/berita" | "/admin/berita/tambah" | "/admin/demografi" | "/admin/galeri" | "/admin/login" | "/admin/peta" | "/admin/peta/form" | "/admin/profil-desa" | "/admin/struktur-organisasi" | "/apb-desa" | "/berita" | `/berita/${string}` & {} | "/demografi" | "/login" | "/peta" | "/profil" | "/struktur-organisasi" | "/wisata-umkm";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
 		Asset(): "/acara-adat-resepsi.png" | "/Batas_Desa.json" | "/berangkat-sekolah.jpeg" | "/diskusi-kantor-desa.png" | "/Fasilitas_Desa_Mengeruda.json" | "/hero-1.jpg" | "/hero-2.png" | "/icon-apbd.png" | "/Jalan_Desa_Mengeruda.json" | "/karang-taruna.png" | "/kunjungan-mahasiswa-sekolah.jpeg" | "/logo.png" | "/menjemur-padi.jpeg" | "/mpls-satap.png" | "/peta-mengeruda.png" | "/produk-tempe.png" | "/robots.txt" | "/sinergi-mahasiswa-kkn.jpeg" | "/user-placeholder.png" | "/wisata-air-panas.jpeg" | string & {};
 	}

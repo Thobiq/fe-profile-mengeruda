@@ -32,6 +32,9 @@
 	"/admin/galeri": [
 		"src/routes/+layout.js"
 	],
+	"/admin/login": [
+		"src/routes/+layout.js"
+	],
 	"/admin/peta": [
 		"src/routes/+layout.js"
 	],

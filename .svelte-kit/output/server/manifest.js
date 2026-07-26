@@ -10,7 +10,7 @@ return {
 	assets: new Set(["acara-adat-resepsi.png","Batas_Desa.json","berangkat-sekolah.jpeg","diskusi-kantor-desa.png","Fasilitas_Desa_Mengeruda.json","hero-1.jpg","hero-2.png","icon-apbd.png","Jalan_Desa_Mengeruda.json","karang-taruna.png","kunjungan-mahasiswa-sekolah.jpeg","logo.png","menjemur-padi.jpeg","mpls-satap.png","peta-mengeruda.png","produk-tempe.png","robots.txt","sinergi-mahasiswa-kkn.jpeg","user-placeholder.png","wisata-air-panas.jpeg"]),
 	mimeTypes: {".png":"image/png",".json":"application/json",".jpeg":"image/jpeg",".jpg":"image/jpeg",".txt":"text/plain"},
 	_: {
-		client: {start:"_app/immutable/entry/start.epsB9Od1.js",app:"_app/immutable/entry/app.Dogk6WNg.js",imports:["_app/immutable/entry/start.epsB9Od1.js","_app/immutable/chunks/CUiGMxns.js","_app/immutable/chunks/BJZZ1NVH.js","_app/immutable/entry/app.Dogk6WNg.js","_app/immutable/chunks/BJZZ1NVH.js","_app/immutable/chunks/HclGiUj8.js","_app/immutable/chunks/xihTtKlq.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:true},
+		client: {start:"_app/immutable/entry/start.BpGzbNmB.js",app:"_app/immutable/entry/app.CKubKaJU.js",imports:["_app/immutable/entry/start.BpGzbNmB.js","_app/immutable/chunks/QfLOjW-j.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/entry/app.CKubKaJU.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/chunks/HclGiUj8.js","_app/immutable/chunks/xihTtKlq.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:true},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),
@@ -29,7 +29,7 @@ return {
 				endpoint: null
 			}
 		],
-		prerendered_routes: new Set(["/","/admin","/admin/administrator","/admin/apb-desa","/admin/apb-desa/form","/admin/berita","/admin/berita/tambah","/admin/demografi","/admin/galeri","/admin/peta","/admin/peta/form","/admin/profil-desa","/admin/struktur-organisasi","/apb-desa","/berita","/demografi","/login","/peta","/profil","/struktur-organisasi","/wisata-umkm"]),
+		prerendered_routes: new Set(["/","/admin","/admin/administrator","/admin/apb-desa","/admin/apb-desa/form","/admin/berita","/admin/berita/tambah","/admin/demografi","/admin/galeri","/admin/login","/admin/peta","/admin/peta/form","/admin/profil-desa","/admin/struktur-organisasi","/apb-desa","/berita","/demografi","/login","/peta","/profil","/struktur-organisasi","/wisata-umkm"]),
 		matchers: async () => {
 			
 			return {  };

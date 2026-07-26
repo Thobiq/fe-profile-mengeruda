@@ -6,8 +6,8 @@
   // Menggunakan $bindable agar data teks bisa dikirim bolak-balik dengan halaman utama
   let { content = $bindable() } = $props();
 
-  let editorNode;
-  let quill;
+  let editorNode = $state();
+  let quill = $state(null);
 
   onMount(async () => {
     // Import dinamis khusus di browser (menghindari error SSR)
@@ -53,7 +53,7 @@
       };
     };
 
-    quill = new Quill(editorNode, {
+    const q = new Quill(editorNode, {
       theme: 'snow',
       placeholder: 'Tuliskan deskripsi di sini...',
       modules: {
@@ -73,27 +73,30 @@
 
     // Masukkan teks awal jika ada
     if (content) {
-      quill.root.innerHTML = content;
+      q.clipboard.dangerouslyPasteHTML(content);
     }
 
-    // Dengarkan perubahan dan perbarui variabel content
-    quill.on('text-change', () => {
-      // Jika perubahan berasal dari user, update content
-      const html = quill.root.innerHTML;
-      if (content !== html) {
-        content = html;
+    // Dengarkan perubahan dari input user dan perbarui variabel content
+    q.on('text-change', (delta, oldDelta, source) => {
+      if (source === 'user') {
+        const html = q.root.innerHTML;
+        if (content !== html) {
+          content = html;
+        }
       }
     });
+
+    quill = q;
   });
 
   // Effect untuk menangkap perubahan 'content' dari luar (misal saat data API selesai di-load)
   $effect(() => {
     if (quill && content !== undefined) {
-      if (content !== quill.root.innerHTML) {
+      const currentHtml = quill.root.innerHTML;
+      if (content !== currentHtml) {
         const currentSelection = quill.getSelection();
-        quill.root.innerHTML = content;
+        quill.clipboard.dangerouslyPasteHTML(content || '');
         if (currentSelection) {
-           // kembalikan kursor ke posisi semula
            setTimeout(() => quill.setSelection(currentSelection), 0);
         }
       }

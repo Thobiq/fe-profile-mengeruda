@@ -10,7 +10,7 @@ type OutputDataShape<T> = MaybeWithVoid<Omit<App.PageData, RequiredKeys<T>> & Pa
 type EnsureDefined<T> = T extends null | undefined ? {} : T;
 type OptionalUnion<U extends Record<string, any>, A extends keyof U = U extends U ? keyof U : never> = U extends unknown ? { [P in Exclude<A, keyof U>]?: never } & U : never;
 export type Snapshot<T = any> = Kit.Snapshot<T>;
-type LayoutRouteId = RouteId | "/(client)" | "/(client)/apb-desa" | "/(client)/berita" | "/(client)/berita/[slug]" | "/(client)/demografi" | "/(client)/peta" | "/(client)/profil" | "/(client)/wisata-umkm" | "/admin" | "/admin/administrator" | "/admin/apb-desa" | "/admin/apb-desa/form" | "/admin/berita" | "/admin/berita/tambah" | "/admin/demografi" | "/admin/galeri" | "/admin/peta" | "/admin/peta/form" | "/admin/profil-desa" | "/admin/struktur-organisasi" | "/login" | "/struktur-organisasi" | null
+type LayoutRouteId = RouteId | "/(client)" | "/(client)/apb-desa" | "/(client)/berita" | "/(client)/berita/[slug]" | "/(client)/demografi" | "/(client)/peta" | "/(client)/profil" | "/(client)/wisata-umkm" | "/admin" | "/admin/administrator" | "/admin/apb-desa" | "/admin/apb-desa/form" | "/admin/berita" | "/admin/berita/tambah" | "/admin/demografi" | "/admin/galeri" | "/admin/login" | "/admin/peta" | "/admin/peta/form" | "/admin/profil-desa" | "/admin/struktur-organisasi" | "/login" | "/struktur-organisasi" | null
 type LayoutParams = RouteParams & { slug?: string | undefined }
 type LayoutParentData = EnsureDefined<{}>;
 

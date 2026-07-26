@@ -34,7 +34,8 @@ export const nodes = [
 	() => import('./nodes/22'),
 	() => import('./nodes/23'),
 	() => import('./nodes/24'),
-	() => import('./nodes/25')
+	() => import('./nodes/25'),
+	() => import('./nodes/26')
 ];
 
 export const server_loads = [];
@@ -49,18 +50,19 @@ export const dictionary = {
 		"/admin/berita/tambah": [17,[3]],
 		"/admin/demografi": [18,[3]],
 		"/admin/galeri": [19,[3]],
-		"/admin/peta": [20,[3]],
-		"/admin/peta/form": [21,[3]],
-		"/admin/profil-desa": [22,[3]],
-		"/admin/struktur-organisasi": [23,[3]],
+		"/admin/login": [20,[3]],
+		"/admin/peta": [21,[3]],
+		"/admin/peta/form": [22,[3]],
+		"/admin/profil-desa": [23,[3]],
+		"/admin/struktur-organisasi": [24,[3]],
 		"/(client)/apb-desa": [5,[2]],
 		"/(client)/berita": [6,[2]],
 		"/(client)/berita/[slug]": [7,[2]],
 		"/(client)/demografi": [8,[2]],
-		"/login": [24],
+		"/login": [25],
 		"/(client)/peta": [9,[2]],
 		"/(client)/profil": [10,[2]],
-		"/struktur-organisasi": [25],
+		"/struktur-organisasi": [26],
 		"/(client)/wisata-umkm": [11,[2]]
 	};
 

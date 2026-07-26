@@ -1,1 +1,1 @@
-export { default as component } from "../../../../src/routes/admin/profil-desa/+page.svelte";
+export { default as component } from "../../../../src/routes/admin/peta/form/+page.svelte";
