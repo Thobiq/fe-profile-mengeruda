@@ -1,8 +1,9 @@
 import "../../../chunks/index-server.js";
 import { o as public_env } from "../../../chunks/internal2.js";
-import { T as escape_html, a as ensure_array_like, c as store_get, l as stringify, t as attr_class, u as unsubscribe_stores, w as attr } from "../../../chunks/server.js";
+import { T as escape_html, a as ensure_array_like, c as store_get, l as stringify, o as head, t as attr_class, u as unsubscribe_stores, w as attr } from "../../../chunks/server.js";
 /* empty css                  */
 import { t as page } from "../../../chunks/stores.js";
+import "../../../chunks/api.js";
 //#region src/lib/components/Navbar.svelte
 function Navbar($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
@@ -104,16 +105,22 @@ function DevelopmentBanner($$renderer, $$props) {
 //#endregion
 //#region src/routes/(client)/+layout.svelte
 function _layout($$renderer, $$props) {
-	let { children } = $$props;
-	$$renderer.push(`<div class="min-h-screen bg-gray-50 flex flex-col justify-between"><div><div class="sticky top-0 z-50 w-full flex flex-col">`);
-	Navbar($$renderer, {});
-	$$renderer.push(`<!----> `);
-	DevelopmentBanner($$renderer, {});
-	$$renderer.push(`<!----></div> <main>`);
-	children($$renderer);
-	$$renderer.push(`<!----></main></div> `);
-	Footer($$renderer, {});
-	$$renderer.push(`<!----></div>`);
+	$$renderer.component(($$renderer) => {
+		let { children } = $$props;
+		let logoUrl = "/logo.png";
+		head("1bdg4s4", $$renderer, ($$renderer) => {
+			$$renderer.push(`<link rel="icon"${attr("href", logoUrl)}/>`);
+		});
+		$$renderer.push(`<div class="min-h-screen bg-gray-50 flex flex-col justify-between"><div><div class="sticky top-0 z-50 w-full flex flex-col">`);
+		Navbar($$renderer, {});
+		$$renderer.push(`<!----> `);
+		DevelopmentBanner($$renderer, {});
+		$$renderer.push(`<!----></div> <main>`);
+		children($$renderer);
+		$$renderer.push(`<!----></main></div> `);
+		Footer($$renderer, {});
+		$$renderer.push(`<!----></div>`);
+	});
 }
 //#endregion
 export { _layout as default };

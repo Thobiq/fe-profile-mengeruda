@@ -1,5 +1,5 @@
 import "../../../chunks/index-server.js";
-import { T as escape_html, a as ensure_array_like, c as store_get, f as html, i as derived, l as stringify, t as attr_class, u as unsubscribe_stores, w as attr } from "../../../chunks/server.js";
+import { T as escape_html, a as ensure_array_like, c as store_get, f as html, i as derived, l as stringify, o as head, t as attr_class, u as unsubscribe_stores, w as attr } from "../../../chunks/server.js";
 import { t as page } from "../../../chunks/stores.js";
 import "../../../chunks/api.js";
 //#region src/routes/admin/+layout.svelte
@@ -73,7 +73,10 @@ function _layout($$renderer, $$props) {
 			return userPermissions.includes(m.permissions);
 		}));
 		let pageTitle = derived(() => menus().find((m) => m.path === currentPath())?.name || "Dashboard");
-		$$renderer.push(`<div class="flex h-screen bg-[#f8f9fa] font-sans overflow-hidden">`);
+		head("1qg5d05", $$renderer, ($$renderer) => {
+			$$renderer.push(`<link rel="icon"${attr("href", logoUrl)}/>`);
+		});
+		$$renderer.push(`<div class="flex h-screen bg-[#f8f9fa] font-['Montserrat'] overflow-hidden">`);
 		$$renderer.push("<!--[0-->");
 		$$renderer.push(`<div class="fixed inset-0 flex justify-center items-center bg-white z-[9999]"><svg class="animate-spin h-10 w-10 text-[#006e33]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></div>`);
 		$$renderer.push(`<!--]--> `);

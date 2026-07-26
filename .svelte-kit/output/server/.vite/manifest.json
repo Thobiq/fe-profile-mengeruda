@@ -28,9 +28,9 @@
     "file": "chunks/api.js",
     "name": "api"
   },
-  "_app.CIw5spCW.css": {
-    "file": "_app/immutable/assets/app.CIw5spCW.css",
-    "src": "_app.CIw5spCW.css"
+  "_app.DUcgiF9e.css": {
+    "file": "_app/immutable/assets/app.DUcgiF9e.css",
+    "src": "_app.DUcgiF9e.css"
   },
   "_client.js": {
     "file": "chunks/client.js",
@@ -145,10 +145,11 @@
       "_index-server.js",
       "_internal2.js",
       "_server.js",
-      "_stores.js"
+      "_stores.js",
+      "_api.js"
     ],
     "css": [
-      "_app/immutable/assets/app.CIw5spCW.css"
+      "_app/immutable/assets/app.DUcgiF9e.css"
     ]
   },
   "src/routes/(client)/+page.js": {
@@ -275,7 +276,7 @@
       "_stores.js"
     ],
     "css": [
-      "_app/immutable/assets/app.CIw5spCW.css"
+      "_app/immutable/assets/app.DUcgiF9e.css"
     ]
   },
   "src/routes/admin/+layout.svelte": {

@@ -100,10 +100,10 @@
         if (d.nama_desa) {
           namaDesa = `Desa ${d.nama_desa}`;
         }
-        if (d.logo_url) {
-          let url = d.logo_url;
+        if (d.logo_url || d.logo) {
+          let url = d.logo_url || d.logo;
           if (!url.startsWith('http')) {
-            url = `${import.meta.env.VITE_PUBLIC_BACKEND_URL}${url.startsWith('/') ? '' : '/'}${url}`;
+            url = `${import.meta.env.VITE_PUBLIC_BACKEND_URL}${url.startsWith('/') ? '' : '/'}${url.startsWith('storage') ? url : url.replace('/storage/', 'storage/')}`;
           }
           logoUrl = url;
         }
@@ -166,7 +166,11 @@
   };
 </script>
 
-<div class="flex h-screen bg-[#f8f9fa] font-sans overflow-hidden">
+<svelte:head>
+  <link rel="icon" href={logoUrl} />
+</svelte:head>
+
+<div class="flex h-screen bg-[#f8f9fa] font-['Montserrat'] overflow-hidden">
   {#if isCheckingAuth}
     <div class="fixed inset-0 flex justify-center items-center bg-white z-[9999]">
       <svg class="animate-spin h-10 w-10 text-[#006e33]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
