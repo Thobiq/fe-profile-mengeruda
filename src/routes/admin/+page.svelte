@@ -88,8 +88,12 @@
           demografi.total_kk = Number(d.total_kk) || 0;
           demografi.laki_laki = Number(d.laki_laki) || 0;
           demografi.perempuan = Number(d.perempuan) || 0;
-          if (Array.isArray(d.dusun_data)) {
-            demografi.dusun_data = d.dusun_data;
+          let parsedDusun = d.dusun_data;
+          if (typeof parsedDusun === 'string') {
+            try { parsedDusun = JSON.parse(parsedDusun); } catch (e) {}
+          }
+          if (Array.isArray(parsedDusun)) {
+            demografi.dusun_data = parsedDusun;
           }
         }
       }
@@ -480,14 +484,17 @@
             <p class="text-sm font-medium">Belum ada data dusun diisi.</p>
           </div>
         {:else}
+          {@const totalDusun = demografi.dusun_data.reduce((acc, curr) => acc + Number(curr.count || curr.total || curr.jumlah || 0), 0)}
+          {@const divisor = demografi.total_penduduk > 0 ? demografi.total_penduduk : (totalDusun > 0 ? totalDusun : 1)}
           <div class="space-y-4.5">
             {#each demografi.dusun_data as ds}
-              {@const percentage = demografi.total_penduduk > 0 ? Math.round((Number(ds.total || ds.jumlah || 0) / demografi.total_penduduk) * 100) : 0}
+              {@const jml = Number(ds.count || ds.total || ds.jumlah || 0)}
+              {@const percentage = Math.round((jml / divisor) * 100)}
               <div>
                 <div class="flex items-center justify-between text-sm mb-1.5 font-bold">
-                  <span class="text-gray-700">{ds.nama || ds.name || 'Dusun'}</span>
+                  <span class="text-gray-700">{ds.name || ds.nama || 'Dusun'}</span>
                   <span class="text-gray-900 font-extrabold">
-                    {formatAngka(ds.total || ds.jumlah || 0)} Jiwa
+                    {formatAngka(jml)} Jiwa
                     <span class="text-xs text-gray-400 font-semibold ml-1">({percentage}%)</span>
                   </span>
                 </div>

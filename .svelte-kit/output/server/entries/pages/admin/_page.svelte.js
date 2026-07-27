@@ -72,12 +72,15 @@ function _page($$renderer, $$props) {
 			$$renderer.push(`<div class="text-center py-8 text-gray-400"><p class="text-sm font-medium">Belum ada data dusun diisi.</p></div>`);
 		} else {
 			$$renderer.push("<!--[-1-->");
+			const totalDusun = demografi.dusun_data.reduce((acc, curr) => acc + Number(curr.count || curr.total || curr.jumlah || 0), 0);
+			const divisor = demografi.total_penduduk > 0 ? demografi.total_penduduk : totalDusun > 0 ? totalDusun : 1;
 			$$renderer.push(`<div class="space-y-4.5"><!--[-->`);
 			const each_array_1 = ensure_array_like(demografi.dusun_data);
 			for (let $$index_1 = 0, $$length = each_array_1.length; $$index_1 < $$length; $$index_1++) {
 				let ds = each_array_1[$$index_1];
-				const percentage = demografi.total_penduduk > 0 ? Math.round(Number(ds.total || ds.jumlah || 0) / demografi.total_penduduk * 100) : 0;
-				$$renderer.push(`<div><div class="flex items-center justify-between text-sm mb-1.5 font-bold"><span class="text-gray-700">${escape_html(ds.nama || ds.name || "Dusun")}</span> <span class="text-gray-900 font-extrabold">${escape_html(formatAngka(ds.total || ds.jumlah || 0))} Jiwa <span class="text-xs text-gray-400 font-semibold ml-1">(${escape_html(percentage)}%)</span></span></div> <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-[#006e33] to-[#00a651] rounded-full transition-all duration-500"${attr_style(`width: ${Math.min(100, percentage)}%`)}></div></div></div>`);
+				const jml = Number(ds.count || ds.total || ds.jumlah || 0);
+				const percentage = Math.round(jml / divisor * 100);
+				$$renderer.push(`<div><div class="flex items-center justify-between text-sm mb-1.5 font-bold"><span class="text-gray-700">${escape_html(ds.name || ds.nama || "Dusun")}</span> <span class="text-gray-900 font-extrabold">${escape_html(formatAngka(jml))} Jiwa <span class="text-xs text-gray-400 font-semibold ml-1">(${escape_html(percentage)}%)</span></span></div> <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-[#006e33] to-[#00a651] rounded-full transition-all duration-500"${attr_style(`width: ${Math.min(100, percentage)}%`)}></div></div></div>`);
 			}
 			$$renderer.push(`<!--]--></div>`);
 		}
