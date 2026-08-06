@@ -92,7 +92,8 @@
 		</div>
 
 		<script>
-			fetch('/api/village-profile')
+			const backendUrl = '%env.VITE_PUBLIC_BACKEND_URL%'.startsWith('%env') ? '' : '%env.VITE_PUBLIC_BACKEND_URL%';
+			fetch((backendUrl || '') + '/api/village-profile')
 				.then(r => r.json())
 				.then(res => {
 					let data = res.data || res;

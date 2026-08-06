@@ -1,7 +1,8 @@
+import { t as public_env } from "../../../chunks/shared-server.js";
 //#region src/routes/(client)/+page.js
 var ssr = false;
 async function load({ fetch }) {
-	const API_URL = "/api";
+	const API_URL = public_env.PUBLIC_API_URL || "https://api.mengeruda.id/api";
 	const endpoints = [
 		fetch(`${API_URL}/galleries`),
 		fetch(`${API_URL}/village-profile`),

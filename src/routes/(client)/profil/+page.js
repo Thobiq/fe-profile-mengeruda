@@ -1,7 +1,9 @@
+import { env } from '$env/dynamic/public';
+
 export const ssr = false;
 
 export async function load({ fetch }) {
-    const API_URL = '/api';
+    const API_URL = import.meta.env.DEV ? '/api' : (env.PUBLIC_API_URL || import.meta.env.VITE_PUBLIC_API_URL || 'https://api.mengeruda.id/api');
     
     const endpoints = [
         fetch(`${API_URL}/galleries`),

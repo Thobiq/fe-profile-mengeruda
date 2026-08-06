@@ -6,6 +6,7 @@
     "isEntry": true,
     "imports": [
       "_internal.js",
+      "_shared-server.js",
       "_internal2.js"
     ]
   },
@@ -39,10 +40,10 @@
       "_index-server.js",
       "_shared.js",
       "_internal.js",
-      "_internal2.js",
       "_exports.js",
       "_server.js",
-      "_index-server2.js"
+      "_index-server2.js",
+      "_internal2.js"
     ]
   },
   "_env.js": {
@@ -92,6 +93,10 @@
   "_server.js": {
     "file": "chunks/server.js",
     "name": "server"
+  },
+  "_shared-server.js": {
+    "file": "chunks/shared-server.js",
+    "name": "shared-server"
   },
   "_shared.js": {
     "file": "chunks/shared.js",
@@ -144,11 +149,12 @@
       "_shared.js",
       "_internal.js",
       "_utils.js",
-      "_internal2.js",
+      "_shared-server.js",
       "_exports.js",
       "_server.js",
       "_index-server2.js",
-      "_env.js"
+      "_env.js",
+      "_internal2.js"
     ]
   },
   "src/routes/(client)/+layout.svelte": {
@@ -158,7 +164,7 @@
     "isEntry": true,
     "imports": [
       "_index-server.js",
-      "_internal2.js",
+      "_shared-server.js",
       "_server.js",
       "_stores.js",
       "_api.js",
@@ -172,7 +178,10 @@
     "file": "entries/pages/(client)/_page.js",
     "name": "entries/pages/(client)/_page",
     "src": "src/routes/(client)/+page.js",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_shared-server.js"
+    ]
   },
   "src/routes/(client)/+page.svelte": {
     "file": "entries/pages/(client)/_page.svelte.js",
@@ -250,7 +259,10 @@
     "file": "entries/pages/(client)/profil/_page.js",
     "name": "entries/pages/(client)/profil/_page",
     "src": "src/routes/(client)/profil/+page.js",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_shared-server.js"
+    ]
   },
   "src/routes/(client)/profil/+page.svelte": {
     "file": "entries/pages/(client)/profil/_page.svelte.js",

@@ -1,45 +1,12 @@
 <script>
   import { onMount } from 'svelte';
+  import { villageProfileStore, fetchVillageProfile } from '$lib/stores/profile';
 
   // State reaktif dengan Svelte 5 Runes
-  let profile = $state({
-    nama_desa: 'Mengeruda',
-    kecamatan: 'Soa',
-    kabupaten: 'Ngada',
-    provinsi: 'Nusa Tenggara Timur',
-    alamat: 'Mengeruda, Kec. Soa, Kabupaten Ngada, Nusa Tenggara Tim.',
-    telp: '0812-3456-7890',
-    email: 'pemdes@mengeruda.id',
-    logo_url: '/logo.png'
-  });
+  let profile = $derived($villageProfileStore);
 
-  onMount(async () => {
-    try {
-      const res = await fetch('/api/village-profile');
-      if (res.ok) {
-        const json = await res.json();
-        const data = json.data || json;
-        if (data) {
-          profile.nama_desa = data.nama_desa || 'Mengeruda';
-          profile.kecamatan = data.kecamatan || 'Soa';
-          profile.kabupaten = data.kabupaten || 'Ngada';
-          profile.provinsi = data.provinsi || 'Nusa Tenggara Timur';
-          profile.alamat = data.alamat || 'Mengeruda, Kec. Soa, Kabupaten Ngada, Nusa Tenggara Timur';
-          profile.telp = data.telp || '0812-3456-7890';
-          profile.email = data.email || 'pemdes@mengeruda.id';
-
-          if (data.logo_url) {
-            let url = data.logo_url;
-            if (!url.startsWith('http')) {
-              url = `${import.meta.env.VITE_PUBLIC_BACKEND_URL}${url.startsWith('/') ? '' : '/'}${url}`;
-            }
-            profile.logo_url = url;
-          }
-        }
-      }
-    } catch (e) {
-      console.error('Gagal memuat data profil di Footer:', e);
-    }
+  onMount(() => {
+    fetchVillageProfile();
   });
 
   const currentYear = new Date().getFullYear();

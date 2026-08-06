@@ -6,6 +6,12 @@ var villageProfileStore = writable({
 	nama_desa: "Desa Mengeruda",
 	alamat_desa: "Kab. Ngada, Nusa Tenggara Timur",
 	logo_url: "/logo.png",
+	kecamatan: "Soa",
+	kabupaten: "Ngada",
+	provinsi: "Nusa Tenggara Timur",
+	alamat: "Mengeruda, Kec. Soa, Kabupaten Ngada, Nusa Tenggara Tim.",
+	telp: "0812-3456-7890",
+	email: "pemdes@mengeruda.id",
 	loaded: false
 });
 var isFetching = false;
@@ -31,6 +37,12 @@ async function fetchVillageProfile() {
 				nama_desa: formattedNama,
 				alamat_desa: formattedAlamat,
 				logo_url: logoUrl,
+				kecamatan: d.kecamatan || "Soa",
+				kabupaten: d.kabupaten || "Ngada",
+				provinsi: d.provinsi || "Nusa Tenggara Timur",
+				alamat: d.alamat || "Mengeruda, Kec. Soa, Kabupaten Ngada, Nusa Tenggara Tim.",
+				telp: d.telp || "0812-3456-7890",
+				email: d.email || "pemdes@mengeruda.id",
 				loaded: true
 			});
 			if (typeof document !== "undefined") {

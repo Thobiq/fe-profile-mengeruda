@@ -4,16 +4,16 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
-		<link href="./_app/immutable/entry/start.BuFNk55x.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/DJUF0AEc.js" rel="modulepreload">
+		<link href="./_app/immutable/entry/start.C41fW3Sa.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/BUcJePyL.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/B4cpIHhn.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/BqYYm7K9.js" rel="modulepreload">
-		<link href="./_app/immutable/entry/app.Dfh_YcnC.js" rel="modulepreload">
+		<link href="./_app/immutable/entry/app.CGU-Bvpz.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/HclGiUj8.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/xihTtKlq.js" rel="modulepreload">
-		<link href="./_app/immutable/nodes/0.CMfcIhoi.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/BTXWRKc1.js" rel="modulepreload">
-		<link href="./_app/immutable/nodes/25.Dc9Psf_L.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/0.D9vzKjHb.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/mUt_JMRz.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/25.Bw0lCOJM.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/DquF8sP5.js" rel="modulepreload">
 		<link href="./_app/env.js" rel="modulepreload">
 		
@@ -105,7 +105,8 @@
 		</div>
 
 		<script>
-			fetch('/api/village-profile')
+			const backendUrl = '%env.VITE_PUBLIC_BACKEND_URL%'.startsWith('%env') ? '' : '%env.VITE_PUBLIC_BACKEND_URL%';
+			fetch((backendUrl || '') + '/api/village-profile')
 				.then(r => r.json())
 				.then(res => {
 					let data = res.data || res;
@@ -123,7 +124,7 @@
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_17wy321 = {
+					__sveltekit_wgvc9n = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: null
 					};
@@ -131,11 +132,11 @@
 					const element = document.currentScript.parentElement;
 
 					import("./_app/env.js").then(({ env }) => {
-						__sveltekit_17wy321.env = env;
+						__sveltekit_wgvc9n.env = env;
 
 						Promise.all([
-							import("./_app/immutable/entry/start.BuFNk55x.js"),
-							import("./_app/immutable/entry/app.Dfh_YcnC.js")
+							import("./_app/immutable/entry/start.C41fW3Sa.js"),
+							import("./_app/immutable/entry/app.CGU-Bvpz.js")
 						]).then(([kit, app]) => {
 							kit.start(app, element);
 						});
