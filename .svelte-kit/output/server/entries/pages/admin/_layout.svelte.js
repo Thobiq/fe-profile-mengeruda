@@ -2,14 +2,16 @@ import "../../../chunks/index-server.js";
 import { T as escape_html, a as ensure_array_like, c as store_get, f as html, i as derived, l as stringify, o as head, t as attr_class, u as unsubscribe_stores, w as attr } from "../../../chunks/server.js";
 import { t as page } from "../../../chunks/stores.js";
 import "../../../chunks/api.js";
+import { n as villageProfileStore } from "../../../chunks/profile.js";
 //#region src/routes/admin/+layout.svelte
 function _layout($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		var $$store_subs;
 		let { children } = $$props;
 		let userPermissions = [];
-		let logoUrl = "/logo.png";
-		let namaDesa = "Desa Mengeruda";
+		let profile = derived(() => store_get($$store_subs ??= {}, "$villageProfileStore", villageProfileStore));
+		let logoUrl = derived(() => profile().logo_url);
+		let namaDesa = derived(() => profile().nama_desa);
 		const allMenus = [
 			{
 				name: "Dashboard",
@@ -74,7 +76,7 @@ function _layout($$renderer, $$props) {
 		}));
 		let pageTitle = derived(() => menus().find((m) => m.path === currentPath())?.name || "Dashboard");
 		head("1qg5d05", $$renderer, ($$renderer) => {
-			$$renderer.push(`<link rel="icon"${attr("href", logoUrl)}/>`);
+			$$renderer.push(`<link rel="icon"${attr("href", logoUrl())}/>`);
 		});
 		$$renderer.push(`<div class="flex h-screen bg-[#f8f9fa] font-['Montserrat'] overflow-hidden">`);
 		$$renderer.push("<!--[0-->");
@@ -86,7 +88,7 @@ function _layout($$renderer, $$props) {
     w-[260px] bg-[#006e33] flex flex-col text-white
     transform transition-transform duration-300 ease-in-out
     -translate-x-full lg:translate-x-0
-  `)}><div class="flex items-center gap-3 px-6 py-8"><div class="w-12 h-12 bg-white rounded-full p-1 flex items-center justify-center shrink-0 shadow-sm overflow-hidden border border-white/20"><img${attr("src", logoUrl)}${attr("alt", `Logo ${stringify(namaDesa)}`)} class="w-full h-full object-contain"/></div> <div><h2 class="font-bold text-[17px] leading-tight">${escape_html(namaDesa)}</h2> <p class="text-[13px] text-white/80 font-medium">Admin Panel</p></div></div> <nav class="flex-1 px-4 space-y-1.5 overflow-y-auto mt-2"><!--[-->`);
+  `)}><div class="flex items-center gap-3 px-6 py-8"><div class="w-12 h-12 bg-white rounded-full p-1 flex items-center justify-center shrink-0 shadow-sm overflow-hidden border border-white/20"><img${attr("src", logoUrl())}${attr("alt", `Logo ${stringify(namaDesa())}`)} class="w-full h-full object-contain"/></div> <div><h2 class="font-bold text-[17px] leading-tight">${escape_html(namaDesa())}</h2> <p class="text-[13px] text-white/80 font-medium">Admin Panel</p></div></div> <nav class="flex-1 px-4 space-y-1.5 overflow-y-auto mt-2"><!--[-->`);
 		const each_array = ensure_array_like(menus());
 		for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
 			let menu = each_array[$$index];

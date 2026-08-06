@@ -4,6 +4,7 @@
   // Import komponen Quill Editor
   import QuillEditor from '$lib/components/QuillEditor.svelte';
   import api from '$lib/api';
+  import { fetchVillageProfile } from '$lib/stores/profile';
 
   // Base URL API Laravel
   const API_URL = '/api';
@@ -41,6 +42,8 @@
   let showModal = $state(false);
   let modalMessage = $state('');
   let isSuccess = $state(true);
+  let isSavingInfo = $state(false);
+  let isSavingNarasi = $state(false);
 
   function closeModal() {
     showModal = false;
@@ -90,6 +93,7 @@
   // Fungsi Submit Form 1 (Informasi Desa)
   async function handleSimpanInfo(e) {
     e.preventDefault();
+    isSavingInfo = true;
     try {
       // Gunakan FormData karena ada upload file gambar
       const formData = new FormData();
@@ -113,6 +117,7 @@
         modalMessage = "Informasi Desa berhasil disimpan!";
         isSuccess = true;
         showModal = true;
+        fetchVillageProfile();
       } else {
         modalMessage = "Gagal menyimpan Informasi Desa: " + (json.message || res.statusText);
         isSuccess = false;
@@ -123,12 +128,15 @@
       modalMessage = "Terjadi kesalahan sistem saat menyimpan info.";
       isSuccess = false;
       showModal = true;
+    } finally {
+      isSavingInfo = false;
     }
   }
 
   // Fungsi Submit Form 2 (Narasi Desa)
   async function handleSimpanNarasi(e) {
     e.preventDefault();
+    isSavingNarasi = true;
     try {
       await api.get('/sanctum/csrf-cookie');
       const res = await api.post(`${API_URL}/village-profile/narasi`, {
@@ -153,6 +161,8 @@
       modalMessage = "Terjadi kesalahan sistem saat menyimpan narasi.";
       isSuccess = false;
       showModal = true;
+    } finally {
+      isSavingNarasi = false;
     }
   }
 </script>
@@ -229,8 +239,20 @@
 
       </div>
 
-      <button type="submit" class="w-full bg-[#00a651] hover:bg-[#008f45] text-white font-bold text-lg py-3.5 rounded-xl shadow-md transition-colors">
-        Simpan Informasi Desa
+      <button 
+        type="submit" 
+        disabled={isSavingInfo}
+        class="w-full bg-[#00a651] hover:bg-[#008f45] disabled:bg-gray-400 text-white font-bold text-lg py-3.5 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2"
+      >
+        {#if isSavingInfo}
+          <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Menyimpan...
+        {:else}
+          Simpan Informasi Desa
+        {/if}
       </button>
 
     </form>
@@ -263,8 +285,20 @@
         <QuillEditor bind:content={formNarasi.misi_desa} />
       </div>
 
-      <button type="submit" class="w-full mt-2 bg-[#00a651] hover:bg-[#008f45] text-white font-bold text-lg py-3.5 rounded-xl shadow-md transition-colors">
-        Simpan Narasi Desa
+      <button 
+        type="submit" 
+        disabled={isSavingNarasi}
+        class="w-full mt-2 bg-[#00a651] hover:bg-[#008f45] disabled:bg-gray-400 text-white font-bold text-lg py-3.5 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2"
+      >
+        {#if isSavingNarasi}
+          <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Menyimpan...
+        {:else}
+          Simpan Narasi Desa
+        {/if}
       </button>
 
     </form>

@@ -1,9 +1,10 @@
 import "../../../chunks/index-server.js";
 import { o as public_env } from "../../../chunks/internal2.js";
-import { T as escape_html, a as ensure_array_like, c as store_get, l as stringify, o as head, t as attr_class, u as unsubscribe_stores, w as attr } from "../../../chunks/server.js";
+import { T as escape_html, a as ensure_array_like, c as store_get, i as derived, l as stringify, o as head, t as attr_class, u as unsubscribe_stores, w as attr } from "../../../chunks/server.js";
 /* empty css                  */
 import { t as page } from "../../../chunks/stores.js";
 import "../../../chunks/api.js";
+import { n as villageProfileStore } from "../../../chunks/profile.js";
 //#region src/lib/components/Navbar.svelte
 function Navbar($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
@@ -44,7 +45,11 @@ function Navbar($$renderer, $$props) {
 				]
 			}
 		];
-		$$renderer.push(`<nav class="bg-white w-full shadow-sm relative z-50"><div class="max-w-[1500px] mx-auto px-6 py-4 flex items-center justify-between"><a href="/" class="flex items-center gap-3 hover:opacity-90 transition-opacity"><img${attr("src", "/logo.png")} alt="Logo Desa Mengeruda" class="w-12 h-14 object-contain"/> <div class="flex flex-col"><h1 class="text-[22px] font-serif font-bold text-emerald-800 leading-tight">Desa Mengeruda</h1> <p class="text-[13px] text-gray-900 font-serif">Kab. Ngada, Nusa Tenggara Timur</p></div></a> <ul class="hidden md:flex items-center gap-7"><!--[-->`);
+		let profile = derived(() => store_get($$store_subs ??= {}, "$villageProfileStore", villageProfileStore));
+		let namaDesa = derived(() => profile().nama_desa);
+		let alamatDesa = derived(() => profile().alamat_desa);
+		let logoUrl = derived(() => profile().logo_url);
+		$$renderer.push(`<nav class="bg-white w-full shadow-sm relative z-50"><div class="max-w-[1500px] mx-auto px-6 py-4 flex items-center justify-between"><a href="/" class="flex items-center gap-3 hover:opacity-90 transition-opacity"><img${attr("src", logoUrl())}${attr("alt", `Logo ${stringify(namaDesa())}`)} class="w-12 h-14 object-contain"/> <div class="flex flex-col"><h1 class="text-[22px] font-serif font-bold text-emerald-800 leading-tight">${escape_html(namaDesa())}</h1> <p class="text-[13px] text-gray-900 font-serif">${escape_html(alamatDesa())}</p></div></a> <ul class="hidden md:flex items-center gap-7"><!--[-->`);
 		const each_array = ensure_array_like(navLinks);
 		for (let $$index_1 = 0, $$length = each_array.length; $$index_1 < $$length; $$index_1++) {
 			let link = each_array[$$index_1];

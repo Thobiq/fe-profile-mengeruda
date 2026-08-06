@@ -1,4 +1,3 @@
-import "./server.js";
 //#region node_modules/@sveltejs/kit/src/utils/url.js
 /**
 * Matches a URI scheme. See https://www.rfc-editor.org/rfc/rfc3986#section-3.1

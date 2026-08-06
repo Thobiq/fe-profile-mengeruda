@@ -2,6 +2,7 @@
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import api from '$lib/api';
+  import { villageProfileStore, fetchVillageProfile } from '$lib/stores/profile';
 
   let { children } = $props();
 
@@ -10,8 +11,9 @@
   let isCheckingAuth = $state(true);
   let userPermissions = $state([]);
   let isUnauthorized = $state(false);
-  let logoUrl = $state('/logo.png');
-  let namaDesa = $state('Desa Mengeruda');
+  let profile = $derived($villageProfileStore);
+  let logoUrl = $derived(profile.logo_url);
+  let namaDesa = $derived(profile.nama_desa);
 
   // Daftar menu sidebar
   const allMenus = [
@@ -93,24 +95,7 @@
   let pageTitle = $derived(menus.find(m => m.path === currentPath)?.name || 'Dashboard');
 
   onMount(async () => {
-    try {
-      const resProfile = await api.get('/api/village-profile');
-      const d = resProfile.data?.data || resProfile.data;
-      if (d) {
-        if (d.nama_desa) {
-          namaDesa = `Desa ${d.nama_desa}`;
-        }
-        if (d.logo_url || d.logo) {
-          let url = d.logo_url || d.logo;
-          if (!url.startsWith('http')) {
-            url = `${import.meta.env.VITE_PUBLIC_BACKEND_URL}${url.startsWith('/') ? '' : '/'}${url.startsWith('storage') ? url : url.replace('/storage/', 'storage/')}`;
-          }
-          logoUrl = url;
-        }
-      }
-    } catch (e) {
-      console.error('Gagal memuat logo profil di admin layout:', e);
-    }
+    fetchVillageProfile();
 
     try {
       const response = await api.get('/api/user');

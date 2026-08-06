@@ -41,7 +41,8 @@
       "_internal.js",
       "_internal2.js",
       "_exports.js",
-      "_server.js"
+      "_server.js",
+      "_index-server2.js"
     ]
   },
   "_env.js": {
@@ -50,13 +51,17 @@
   },
   "_exports.js": {
     "file": "chunks/exports.js",
-    "name": "exports",
+    "name": "exports"
+  },
+  "_index-server.js": {
+    "file": "chunks/index-server.js",
+    "name": "index-server",
     "imports": [
       "_server.js"
     ]
   },
-  "_index-server.js": {
-    "file": "chunks/index-server.js",
+  "_index-server2.js": {
+    "file": "chunks/index-server2.js",
     "name": "index-server",
     "imports": [
       "_server.js"
@@ -73,6 +78,15 @@
       "_index-server.js",
       "_internal.js",
       "_server.js"
+    ]
+  },
+  "_profile.js": {
+    "file": "chunks/profile.js",
+    "name": "profile",
+    "imports": [
+      "_server.js",
+      "_index-server2.js",
+      "_api.js"
     ]
   },
   "_server.js": {
@@ -133,6 +147,7 @@
       "_internal2.js",
       "_exports.js",
       "_server.js",
+      "_index-server2.js",
       "_env.js"
     ]
   },
@@ -146,7 +161,8 @@
       "_internal2.js",
       "_server.js",
       "_stores.js",
-      "_api.js"
+      "_api.js",
+      "_profile.js"
     ],
     "css": [
       "_app/immutable/assets/app.BHNAOZry.css"
@@ -288,7 +304,8 @@
       "_index-server.js",
       "_server.js",
       "_stores.js",
-      "_api.js"
+      "_api.js",
+      "_profile.js"
     ]
   },
   "src/routes/admin/+page.svelte": {
@@ -424,6 +441,7 @@
       "_index-server.js",
       "_server.js",
       "_api.js",
+      "_profile.js",
       "_QuillEditor.js"
     ]
   },

@@ -17,38 +17,18 @@
     }
   ];
 
+  import { onMount } from 'svelte';
+  import { villageProfileStore, fetchVillageProfile } from '$lib/stores/profile';
+
   // Menggunakan Svelte 5 syntax untuk reactive state
   let isMenuOpen = $state(false);
-  let logoUrl = $state('/logo.png');
+  let profile = $derived($villageProfileStore);
+  let namaDesa = $derived(profile.nama_desa);
+  let alamatDesa = $derived(profile.alamat_desa);
+  let logoUrl = $derived(profile.logo_url);
 
-  import { onMount } from 'svelte';
-  
-  onMount(async () => {
-    try {
-      const res = await fetch('/api/village-profile');
-      if (res.ok) {
-        const json = await res.json();
-        const data = json.data || json;
-        if (data && data.logo_url) {
-          let url = data.logo_url;
-          if (!url.startsWith('http')) {
-            url = `${import.meta.env.VITE_PUBLIC_BACKEND_URL}${url.startsWith('/') ? '' : '/'}${url}`;
-          }
-          logoUrl = url;
-
-          // Update favicon secara dinamis
-          let link = document.querySelector("link[rel~='icon']");
-          if (!link) {
-            link = document.createElement('link');
-            link.rel = 'icon';
-            document.head.appendChild(link);
-          }
-          link.href = logoUrl;
-        }
-      }
-    } catch (e) {
-      console.error('Failed to load dynamic logo:', e);
-    }
+  onMount(() => {
+    fetchVillageProfile();
   });
 
   function toggleMenu() {
@@ -64,14 +44,14 @@
     
     <!-- Bagian Kiri: Logo dan Identitas Desa -->
     <a href="/" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
-      <img src={logoUrl} alt="Logo Desa Mengeruda" class="w-12 h-14 object-contain" />
+      <img src={logoUrl} alt="Logo {namaDesa}" class="w-12 h-14 object-contain" />
       
       <div class="flex flex-col">
         <h1 class="text-[22px] font-serif font-bold text-emerald-800 leading-tight">
-          Desa Mengeruda
+          {namaDesa}
         </h1>
         <p class="text-[13px] text-gray-900 font-serif">
-          Kab. Ngada, Nusa Tenggara Timur
+          {alamatDesa}
         </p>
       </div>
     </a>

@@ -4,6 +4,7 @@ import "./internal.js";
 import "./internal2.js";
 import "./exports.js";
 import { O as writable, ct as noop$1 } from "./server.js";
+import "./index-server2.js";
 import "@sveltejs/kit/internal";
 import "@sveltejs/kit/internal/server";
 var PRELOAD_PRIORITIES = {
