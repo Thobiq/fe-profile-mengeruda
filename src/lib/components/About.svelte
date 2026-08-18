@@ -14,7 +14,7 @@
   );
 </script>
 
-<section class="w-full bg-white py-16 md:py-24">
+<section class="w-full bg-white py-6 md:py-10">
   <!-- Wrapper untuk membatasi lebar maksimal 1500px dan menengahkan konten -->
   <div class="max-w-[1500px] mx-auto px-6">
     
@@ -46,7 +46,7 @@
         <img 
           src={imageUrl} 
           alt="Ilustrasi Desa Mengeruda" 
-          class="w-full max-w-[600px] h-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-500" 
+          class="w-full max-w-[400px] h-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-500" 
         />
       </div>
 

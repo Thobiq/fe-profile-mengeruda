@@ -29,9 +29,9 @@
     "file": "chunks/api.js",
     "name": "api"
   },
-  "_app.BHNAOZry.css": {
-    "file": "_app/immutable/assets/app.BHNAOZry.css",
-    "src": "_app.BHNAOZry.css"
+  "_app.CcE-Zxw5.css": {
+    "file": "_app/immutable/assets/app.CcE-Zxw5.css",
+    "src": "_app.CcE-Zxw5.css"
   },
   "_client.js": {
     "file": "chunks/client.js",
@@ -171,7 +171,7 @@
       "_profile.js"
     ],
     "css": [
-      "_app/immutable/assets/app.BHNAOZry.css"
+      "_app/immutable/assets/app.CcE-Zxw5.css"
     ]
   },
   "src/routes/(client)/+page.js": {
@@ -304,7 +304,7 @@
       "_stores.js"
     ],
     "css": [
-      "_app/immutable/assets/app.BHNAOZry.css"
+      "_app/immutable/assets/app.CcE-Zxw5.css"
     ]
   },
   "src/routes/admin/+layout.svelte": {

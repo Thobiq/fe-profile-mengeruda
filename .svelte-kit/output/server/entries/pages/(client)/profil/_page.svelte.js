@@ -10,7 +10,7 @@ function HeroProfile($$renderer, $$props) {
 			const path = item.image_path || item.image_url || "";
 			if (!path) return "/hero-1.jpg";
 			if (path.startsWith("http")) return path;
-			return `https://api.mengeruda.id/storage/${path.replace(/^\/?storage\//, "").replace(/^\//, "")}`;
+			return `https://api-profile.mengeruda.id/storage/${path.replace(/^\/?storage\//, "").replace(/^\//, "")}`;
 		};
 		let images = derived(() => galleries && galleries.length > 0 ? galleries.slice(0, 5).map((g) => getProfileHeroImgUrl(g)) : ["/hero-1.jpg", "/hero-2.png"]);
 		let currentIndex = 0;
@@ -65,7 +65,7 @@ function ProfilStruktur($$renderer, $$props) {
 		head("1jklfu0", $$renderer, ($$renderer) => {
 			$$renderer.push(`<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>`);
 		});
-		$$renderer.push(`<section class="w-full py-10"><div class="max-w-[1300px] mx-auto px-4"><div class="text-center mb-8"><h2 class="text-3xl font-serif font-bold text-[#006e33] mb-2">Struktur Organisasi</h2> <p class="text-gray-600 font-medium">Pemerintah Desa Mengeruda</p></div> <div class="bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-sm flex flex-col relative w-full h-[600px]">`);
+		$$renderer.push(`<section class="w-full py-10"><div class="max-w-[1300px] mx-auto px-4"><div class="text-center mb-8"><h2 class="text-3xl font-serif font-bold text-[#006e33] mb-2">Struktur Organisasi</h2> <p class="text-gray-600 font-medium">Struktur Organisasi Pemerintah Desa Mengeruda</p></div> <div class="bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-sm flex flex-col relative w-full h-[600px]">`);
 		if (perangkatList().length === 0) {
 			$$renderer.push("<!--[0-->");
 			$$renderer.push(`<div class="absolute inset-0 flex flex-col items-center justify-center text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mb-4"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg> <p class="text-lg font-medium font-serif">Belum ada data struktur organisasi.</p></div>`);

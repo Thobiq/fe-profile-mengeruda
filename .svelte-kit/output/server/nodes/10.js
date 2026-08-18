@@ -7,6 +7,6 @@ export const universal = {
   "load": null
 };
 export const universal_id = "src/routes/(client)/profil/+page.js";
-export const imports = ["_app/immutable/nodes/10.2sJ-mD5L.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/chunks/xihTtKlq.js","_app/immutable/chunks/CaTTHRL_.js","_app/immutable/chunks/l_OTBziO.js"];
+export const imports = ["_app/immutable/nodes/10.CqdBSIgs.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/chunks/xihTtKlq.js","_app/immutable/chunks/DTCvsKPW.js","_app/immutable/chunks/l_OTBziO.js"];
 export const stylesheets = [];
 export const fonts = [];

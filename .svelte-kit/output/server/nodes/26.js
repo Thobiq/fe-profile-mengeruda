@@ -7,6 +7,6 @@ export const universal = {
   "load": null
 };
 export const universal_id = "src/routes/struktur-organisasi/+page.js";
-export const imports = ["_app/immutable/nodes/26.CkAG7GRr.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/chunks/xihTtKlq.js","_app/immutable/chunks/l_OTBziO.js"];
+export const imports = ["_app/immutable/nodes/26.CBzQzTbO.js","_app/immutable/chunks/B4cpIHhn.js","_app/immutable/chunks/xihTtKlq.js","_app/immutable/chunks/l_OTBziO.js"];
 export const stylesheets = [];
 export const fonts = [];

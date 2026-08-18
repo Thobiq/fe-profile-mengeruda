@@ -5,8 +5,7 @@ function HeroBerita($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		let beritaTerbaru = [];
 		let currentIndex = 0;
-		$$renderer.push(`<section class="w-full bg-white pt-12 pb-8 md:pt-16"><div class="max-w-[1500px] mx-auto px-6"><div class="text-center mb-10"><h1 class="text-3xl md:text-[44px] font-serif font-bold text-black mb-4">Berita Desa Mengeruda</h1> <p class="text-gray-800 font-serif text-base md:text-lg max-w-3xl mx-auto leading-relaxed">Dolor eiusmod mollit cupidatat officia consequat in elit tempor. Ex 
-        deserunt reprehenderit ad anim do adipiscing aute.</p></div> <div class="relative w-full h-[450px] md:h-[550px] rounded-[2rem] overflow-hidden shadow-xl bg-gray-100"><!--[-->`);
+		$$renderer.push(`<section class="w-full bg-white pt-12 pb-8 md:pt-16"><div class="max-w-[1500px] mx-auto px-6"><div class="text-center mb-10"><h1 class="text-3xl md:text-[44px] font-serif font-bold text-black mb-4">Berita Desa Mengeruda</h1> <p class="text-gray-800 font-serif text-base md:text-lg max-w-3xl mx-auto leading-relaxed">Berita terkini seputar aktivitas, program, dan kegiatan masyarakat</p></div> <div class="relative w-full h-[450px] md:h-[550px] rounded-[2rem] overflow-hidden shadow-xl bg-gray-100"><!--[-->`);
 		const each_array = ensure_array_like(beritaTerbaru);
 		for (let index = 0, $$length = each_array.length; index < $$length; index++) {
 			let berita = each_array[index];

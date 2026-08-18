@@ -47,8 +47,7 @@
         Berita Desa Mengeruda
       </h1>
       <p class="text-gray-800 font-serif text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
-        Dolor eiusmod mollit cupidatat officia consequat in elit tempor. Ex 
-        deserunt reprehenderit ad anim do adipiscing aute.
+        Berita terkini seputar aktivitas, program, dan kegiatan masyarakat
       </p>
     </div>
 

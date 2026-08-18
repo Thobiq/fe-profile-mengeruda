@@ -8,7 +8,7 @@ function Hero($$renderer, $$props) {
 			const path = item.image_path || item.image_url || "";
 			if (!path) return "/hero-1.jpg";
 			if (path.startsWith("http")) return path;
-			return `https://api.mengeruda.id/storage/${path.replace(/^\/?storage\//, "").replace(/^\//, "")}`;
+			return `https://api-profile.mengeruda.id/storage/${path.replace(/^\/?storage\//, "").replace(/^\//, "")}`;
 		};
 		let images = derived(() => galleries && galleries.length > 0 ? galleries.slice(0, 5).map((g) => getHeroImgUrl(g)) : [
 			"/hero-1.jpg",
@@ -89,7 +89,7 @@ function About($$renderer, $$props) {
 		let { profile = null } = $$props;
 		let textNarasi = derived(() => profile && profile.tentang_desa ? profile.tentang_desa.replace(/<[^>]*>?/gm, "").substring(0, 300) + "..." : "Dolor eiusmod mollit cupidatat officia consequat in elit tempor. Ex deserunt reprehenderit ad anim do adipiscing aute. Pariatur voluptate dolore deserunt nisi fugiat ea ut adipiscing mollit irure.");
 		let imageUrl = derived(() => profile && profile.logo_url ? profile.logo_url.startsWith("http") ? profile.logo_url : `/storage/${profile.logo_url.replace("/storage/", "")}` : "/peta-mengeruda.png");
-		$$renderer.push(`<section class="w-full bg-white py-16 md:py-24"><div class="max-w-[1500px] mx-auto px-6"><div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center"><div class="flex flex-col items-start"><h2 class="text-4xl md:text-[42px] font-serif font-bold text-black mb-6">Tentang Mengeruda</h2> <p class="text-[17px] md:text-lg font-serif text-gray-800 leading-relaxed mb-8 text-justify">${escape_html(textNarasi())}</p> <a href="/profil" class="bg-[#00a651] hover:bg-[#008f45] text-white font-medium text-[17px] py-3 px-8 rounded-full transition-colors duration-300 shadow-sm inline-block">Selengkapnya</a></div> <div class="w-full flex justify-center"><img${attr("src", imageUrl())} alt="Ilustrasi Desa Mengeruda" class="w-full max-w-[600px] h-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-500"/></div></div></div></section>`);
+		$$renderer.push(`<section class="w-full bg-white py-6 md:py-10"><div class="max-w-[1500px] mx-auto px-6"><div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center"><div class="flex flex-col items-start"><h2 class="text-4xl md:text-[42px] font-serif font-bold text-black mb-6">Tentang Mengeruda</h2> <p class="text-[17px] md:text-lg font-serif text-gray-800 leading-relaxed mb-8 text-justify">${escape_html(textNarasi())}</p> <a href="/profil" class="bg-[#00a651] hover:bg-[#008f45] text-white font-medium text-[17px] py-3 px-8 rounded-full transition-colors duration-300 shadow-sm inline-block">Selengkapnya</a></div> <div class="w-full flex justify-center"><img${attr("src", imageUrl())} alt="Ilustrasi Desa Mengeruda" class="w-full max-w-[400px] h-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-500"/></div></div></div></section>`);
 	});
 }
 //#endregion
@@ -141,7 +141,7 @@ function AdministrasiPenduduk($$renderer, $$props) {
 function StrukturOrganisasi($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		let { struktur = [] } = $$props;
-		let aparat = derived(() => struktur && struktur.length > 0 ? struktur.map((s) => ({
+		let baseAparat = derived(() => struktur && struktur.length > 0 ? struktur.map((s) => ({
 			name: s.nama,
 			role: s.jabatan,
 			img: s.foto ? s.foto.startsWith("http") ? s.foto : `/storage/${s.foto.replace("/storage/", "")}` : "/user-placeholder.png"
@@ -171,6 +171,11 @@ function StrukturOrganisasi($$renderer, $$props) {
 				role: "Jabatan",
 				img: "/user-placeholder.png"
 			}
+		]);
+		let aparat = derived(() => [
+			...baseAparat(),
+			...baseAparat(),
+			...baseAparat()
 		]);
 		$$renderer.push(`<section class="w-full bg-white py-16"><div class="max-w-[1500px] mx-auto px-6"><div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-serif font-bold text-[#008f45] mb-4">Struktur Organisasi &amp; Tata Kerja</h2> <p class="text-gray-800 font-serif text-base md:text-lg max-w-3xl mx-auto leading-relaxed">Pemerintahan Desa Mengeruda didukung oleh aparatur yang berdedikasi tinggi untuk melayani masyarakat.</p></div>  <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 pt-2 [&amp;::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"><!--[-->`);
 		const each_array = ensure_array_like(aparat());
@@ -211,7 +216,7 @@ function ApbDesa($$renderer, $$props) {
 function BeritaDesa($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		let { news = [] } = $$props;
-		let daftarBerita = derived(() => news && news.length > 0 ? news.slice(0, 4).map((b) => ({
+		let baseBerita = derived(() => news && news.length > 0 ? news.slice(0, 4).map((b) => ({
 			title: b.judul || b.title || "Tanpa Judul",
 			date: b.created_at ? new Date(b.created_at).toLocaleDateString("id-ID", {
 				day: "2-digit",
@@ -251,6 +256,11 @@ function BeritaDesa($$renderer, $$props) {
 				slug: "koordinasi-pemerintah-desa-kkn-4"
 			}
 		]);
+		let daftarBerita = derived(() => [
+			...baseBerita(),
+			...baseBerita(),
+			...baseBerita()
+		]);
 		$$renderer.push(`<section class="w-full bg-white py-16"><div class="max-w-[1500px] mx-auto px-6"><div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-serif font-bold text-[#008f45] mb-4">Berita Desa</h2> <p class="text-gray-800 font-serif text-base md:text-lg max-w-3xl mx-auto leading-relaxed">Kumpulan informasi, berita terbaru, dan pengumuman terkait kegiatan di Desa Mengeruda.</p></div> <div class="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-10 pt-4 px-2 [&amp;::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"><!--[-->`);
 		const each_array = ensure_array_like(daftarBerita());
 		for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
@@ -270,7 +280,7 @@ function GaleriHome($$renderer, $$props) {
 			const path = item.image_path || item.image_url || "";
 			if (!path) return "/hero-1.jpg";
 			if (path.startsWith("http")) return path;
-			return `https://api.mengeruda.id/storage/${path.replace(/^\/?storage\//, "").replace(/^\//, "")}`;
+			return `https://api-profile.mengeruda.id/storage/${path.replace(/^\/?storage\//, "").replace(/^\//, "")}`;
 		};
 		let formattedGalleries = derived(() => galleries && galleries.length > 0 ? galleries.map((g) => ({
 			img: getGaleriUrl(g),

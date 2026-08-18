@@ -30,7 +30,7 @@ async function fetchVillageProfile() {
 			let logoUrl = "/logo.png";
 			if (d.logo_url || d.logo) {
 				let url = d.logo_url || d.logo;
-				if (!url.startsWith("http")) url = `https://api.mengeruda.id${url.startsWith("/") ? "" : "/"}${url.startsWith("storage") ? url : url.replace("/storage/", "storage/")}`;
+				if (!url.startsWith("http")) url = `https://api-profile.mengeruda.id${url.startsWith("/") ? "" : "/"}${url.startsWith("storage") ? url : url.replace("/storage/", "storage/")}`;
 				logoUrl = url;
 			}
 			villageProfileStore.set({

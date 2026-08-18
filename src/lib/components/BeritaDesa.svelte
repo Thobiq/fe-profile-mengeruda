@@ -1,7 +1,7 @@
 <script>
   let { news = [] } = $props();
 
-  let daftarBerita = $derived(
+  let baseBerita = $derived(
     news && news.length > 0 
       ? news.slice(0, 4).map(b => ({
           title: b.judul || b.title || 'Tanpa Judul',
@@ -42,25 +42,36 @@
         ]
   );
 
+  // Duplikasi array untuk efek infinite marquee
+  let daftarBerita = $derived([...baseBerita, ...baseBerita, ...baseBerita]);
+
   // Variabel untuk mengikat elemen DOM container slider
   let scrollContainer = $state(null);
+  let isHovered = $state(false);
 
-  // Efek auto-scroll mirip dengan struktur organisasi
+  // Efek berjalan di sisi client untuk mengatur auto-scroll per kartu
   $effect(() => {
     const interval = setInterval(() => {
-      if (scrollContainer) {
-        const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      if (scrollContainer && !isHovered) {
+        const singleSetWidth = scrollContainer.scrollWidth / 3;
         
-        // Toleransi 10px untuk deteksi ujung kanan
-        if (scrollContainer.scrollLeft >= maxScroll - 10) {
-          scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+        // Jika posisi sudah mencapai ujung set pertama
+        if (scrollContainer.scrollLeft >= singleSetWidth) {
+          // Reset seketika ke awal tanpa animasi (behavior: 'auto')
+          scrollContainer.scrollTo({ left: 0, behavior: 'auto' });
+          
+          // Setelah reset, gulir ke kartu berikutnya dengan animasi
+          setTimeout(() => {
+            if (scrollContainer) scrollContainer.scrollBy({ left: 380, behavior: 'smooth' });
+          }, 50);
         } else {
-          // Menggeser sejauh kurang lebih lebar 1 kartu berita (380px)
+          // Gulir normal per kartu
           scrollContainer.scrollBy({ left: 380, behavior: 'smooth' });
         }
       }
-    }, 4000); // Berganti setiap 4 detik agar user sempat membaca judul
+    }, 4000);
 
+    // Bersihkan interval saat komponen dilepas untuk mencegah memory leak
     return () => clearInterval(interval);
   });
 </script>
@@ -83,6 +94,8 @@
       bind:this={scrollContainer}
       class="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-10 pt-4 px-2
              [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      onmouseenter={() => isHovered = true}
+      onmouseleave={() => isHovered = false}
     >
       {#each daftarBerita as berita}
         <!-- 

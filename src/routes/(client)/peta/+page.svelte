@@ -2,12 +2,26 @@
   import { onMount } from 'svelte';
 
   let mapContainer;
+  let locations = $state([]);
 
   onMount(async () => {
     const L = (await import('leaflet')).default;
-
-    // 1. Inisialisasi Peta
-    const map = L.map(mapContainer).setView([-8.6, 121.0], 13);
+    await import('leaflet-gesture-handling'); // Import plugin
+    await import('leaflet-gesture-handling/dist/leaflet-gesture-handling.css'); // Import plugin CSS
+    
+    // 1. Inisialisasi Peta dengan Gesture Handling
+    const map = L.map(mapContainer, {
+      center: [-8.6, 121.0],
+      zoom: 13,
+      gestureHandling: true,
+      gestureHandlingOptions: {
+        text: {
+          touch: "Gunakan dua jari untuk menggeser peta",
+          scroll: "Gunakan tombol Ctrl + Scroll untuk memperbesar peta",
+          scrollMac: "Gunakan tombol \u2318 + Scroll untuk memperbesar peta"
+        }
+      }
+    });
 
     // 2. Base Map OpenStreetMap
     const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -84,8 +98,13 @@
       const categoryLayers = {};
 
       if (apiRes.ok && apiJson.success) {
-        apiJson.data.forEach(loc => {
-          const color = categoryColors[loc.category] || categoryColors['Lainnya'];
+        locations = apiJson.data.map(loc => ({
+          ...loc,
+          color: categoryColors[loc.category] || categoryColors['Lainnya']
+        }));
+
+        locations.forEach(loc => {
+          const color = loc.color;
           
           const marker = L.circleMarker([loc.latitude, loc.longitude], {
             radius: 7,
@@ -168,6 +187,81 @@
 
   </div>
 </section>
+
+<!-- Section Daftar Lokasi -->
+{#if locations.length > 0}
+<section class="w-full bg-gray-50 py-16 border-t border-gray-100">
+  <div class="max-w-[1500px] mx-auto px-6">
+    
+    <div class="mb-10 border-b border-gray-200 pb-4">
+      <h2 class="text-2xl md:text-3xl font-serif font-bold text-gray-900">
+        Daftar Titik Lokasi
+      </h2>
+      <p class="text-gray-600 font-sans mt-2">
+        Temukan berbagai fasilitas, destinasi wisata, dan UMKM yang ada di Desa Mengeruda.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {#each locations as loc}
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+          
+          <!-- Thumbnail Lokasi -->
+          <div class="w-full h-48 bg-gray-100 relative">
+            {#if loc.thumbnail}
+              <img 
+                src={loc.thumbnail.startsWith('http') ? loc.thumbnail : `${import.meta.env.VITE_PUBLIC_BACKEND_URL}${loc.thumbnail}`} 
+                alt={loc.name} 
+                class="w-full h-full object-cover" 
+              />
+            {:else}
+              <!-- Placeholder cantik jika tidak ada gambar -->
+              <div class="w-full h-full flex flex-col items-center justify-center bg-emerald-50 text-emerald-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mb-2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+                <span class="text-sm font-semibold">Tanpa Gambar</span>
+              </div>
+            {/if}
+            
+            <!-- Badge Kategori Absolut -->
+            <div class="absolute top-4 right-4">
+              <span 
+                class="px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm"
+                style="background-color: {loc.color}"
+              >
+                {loc.category}
+              </span>
+            </div>
+          </div>
+          
+          <!-- Konten Informasi -->
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="font-bold text-lg text-gray-900 mb-2 leading-tight">{loc.name}</h3>
+            
+            {#if loc.description}
+              <p class="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">
+                {loc.description}
+              </p>
+            {/if}
+            
+            <!-- Detail Lattitude Longitude -->
+            <div class="mt-auto pt-3 border-t border-gray-50 flex items-center gap-2 text-xs text-gray-500 font-mono">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-emerald-500">
+                <path fill-rule="evenodd" d="M11.986 3H12a2 2 0 012 2v6a2 2 0 01-1.5 1.937V7A2.5 2.5 0 0010 4.5H4.063A2 2 0 016 3h5.986zM6 7a1 1 0 011-1h5a1 1 0 011 1v8a1 1 0 01-1 1H7a1 1 0 01-1-1V7z" clip-rule="evenodd" />
+              </svg>
+              {parseFloat(loc.latitude).toFixed(4)}, {parseFloat(loc.longitude).toFixed(4)}
+            </div>
+          </div>
+          
+        </div>
+      {/each}
+    </div>
+
+  </div>
+</section>
+{/if}
 
 <style>
   :global(.leaflet-container) {

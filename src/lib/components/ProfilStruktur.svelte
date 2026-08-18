@@ -76,7 +76,7 @@
     
     <div class="text-center mb-8">
       <h2 class="text-3xl font-serif font-bold text-[#006e33] mb-2">Struktur Organisasi</h2>
-      <p class="text-gray-600 font-medium">Pemerintah Desa Mengeruda</p>
+      <p class="text-gray-600 font-medium">Struktur Organisasi Pemerintah Desa Mengeruda</p>
     </div>
 
     <div class="bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-sm flex flex-col relative w-full h-[600px]">

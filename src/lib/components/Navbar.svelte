@@ -61,7 +61,11 @@
       {#each navLinks as link}
         <li class="relative group">
           {#if link.dropdown}
-            <button class="flex items-center gap-1 text-[17px] font-serif transition-colors duration-200 text-black hover:text-emerald-700 outline-none">
+            <button class="flex items-center gap-1 text-[17px] font-serif transition-colors duration-200 outline-none 
+              { link.dropdown.some(d => $page.url.pathname === d.path || $page.url.pathname.startsWith(d.path + '/')) 
+                ? 'font-bold text-emerald-800' 
+                : 'text-black hover:text-emerald-700' }"
+            >
               {link.name}
               <!-- Icon Chevron Down -->
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mt-0.5 opacity-70 group-hover:rotate-180 transition-transform duration-300">
@@ -76,7 +80,7 @@
                   <a 
                     href={dropLink.path} 
                     class="px-5 py-2.5 text-[15px] font-serif transition-colors 
-                      { $page.url.pathname === dropLink.path 
+                      { ($page.url.pathname === dropLink.path || $page.url.pathname.startsWith(dropLink.path + '/'))
                         ? 'font-bold text-emerald-800 bg-emerald-50' 
                         : 'text-gray-700 hover:bg-emerald-50 hover:text-emerald-800' }"
                   >
@@ -127,7 +131,11 @@
         {#each navLinks as link}
           {#if link.dropdown}
             <li class="flex flex-col gap-2">
-              <span class="block text-[17px] font-serif font-bold text-black border-b border-gray-100 pb-2">
+              <span class="block text-[17px] font-serif border-b border-gray-100 pb-2
+                { link.dropdown.some(d => $page.url.pathname === d.path || $page.url.pathname.startsWith(d.path + '/')) 
+                  ? 'font-bold text-emerald-800' 
+                  : 'font-bold text-black' }"
+              >
                 {link.name}
               </span>
               <ul class="flex flex-col gap-2 pl-4 border-l-2 border-emerald-100">
@@ -137,7 +145,7 @@
                       href={dropLink.path}
                       onclick={() => isMenuOpen = false} 
                       class="block py-1 text-[16px] font-serif transition-colors duration-200 
-                        { $page.url.pathname === dropLink.path 
+                        { ($page.url.pathname === dropLink.path || $page.url.pathname.startsWith(dropLink.path + '/'))
                           ? 'font-bold text-emerald-800' 
                           : 'text-gray-700 hover:text-emerald-700' }"
                     >

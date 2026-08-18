@@ -1,7 +1,7 @@
 <script>
   let { struktur = [] } = $props();
 
-  let aparat = $derived(
+  let baseAparat = $derived(
     struktur && struktur.length > 0
       ? struktur.map(s => ({
           name: s.nama,
@@ -17,21 +17,30 @@
         ]
   );
 
+  // Duplikasi array untuk efek infinite carousel
+  let aparat = $derived([...baseAparat, ...baseAparat, ...baseAparat]);
+
   // Variabel untuk mengikat elemen DOM container slider
   let scrollContainer = $state(null);
+  let isHovered = $state(false);
 
-  // Efek berjalan di sisi client untuk mengatur auto-scroll
+  // Efek berjalan di sisi client untuk mengatur auto-scroll per kartu
   $effect(() => {
     const interval = setInterval(() => {
-      if (scrollContainer) {
-        // Lebar scroll maksimum dikurangi lebar container saat ini
-        const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      if (scrollContainer && !isHovered) {
+        const singleSetWidth = scrollContainer.scrollWidth / 3;
         
-        // Jika sudah mentok di kanan (dengan toleransi 10px), kembali ke awal
-        if (scrollContainer.scrollLeft >= maxScroll - 10) {
-          scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+        // Jika posisi sudah mencapai ujung set pertama
+        if (scrollContainer.scrollLeft >= singleSetWidth) {
+          // Reset seketika ke awal tanpa animasi (behavior: 'auto')
+          scrollContainer.scrollTo({ left: 0, behavior: 'auto' });
+          
+          // Setelah reset, gulir ke kartu berikutnya dengan animasi
+          setTimeout(() => {
+            if (scrollContainer) scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
+          }, 50);
         } else {
-          // Scroll ke kanan sejauh 300px (kurang lebih selebar 1 kartu)
+          // Gulir normal per kartu
           scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
         }
       }
@@ -57,10 +66,13 @@
 
     <!-- Container Slider -->
     <!-- Class khusus tailwind untuk menyembunyikan scrollbar tapi tetap bisa di-scroll -->
+    <!-- pointer-events-auto and event handlers added to pause marquee on hover -->
     <div 
       bind:this={scrollContainer}
       class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 pt-2 
              [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      onmouseenter={() => isHovered = true}
+      onmouseleave={() => isHovered = false}
     >
       {#each aparat as person}
         <!-- Kartu Profil -->

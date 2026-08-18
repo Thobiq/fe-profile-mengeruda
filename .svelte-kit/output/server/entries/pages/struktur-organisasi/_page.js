@@ -2,7 +2,7 @@
 /** @type {import('./$types').PageLoad} */
 async function load({ fetch }) {
 	try {
-		const response = await fetch(`https://api.mengeruda.id/api/struktur-desa`);
+		const response = await fetch(`https://api-profile.mengeruda.id/api/struktur-desa`);
 		if (!response.ok) throw new Error("Gagal mengambil data struktur organisasi");
 		return { perangkat: (await response.json()).data || [] };
 	} catch (error) {

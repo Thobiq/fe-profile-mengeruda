@@ -29,7 +29,7 @@
   <div class="mx-auto px-6">
     
     <!-- Header Halaman -->
-    <div class="text-center mb-10">
+    <div class="text-center mb-10 mt-10">
       <h1 class="text-3xl md:text-[42px] font-serif font-bold text-black mb-3">
         Demografi Penduduk
       </h1>
