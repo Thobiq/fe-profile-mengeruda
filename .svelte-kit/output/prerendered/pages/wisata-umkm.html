@@ -4,19 +4,19 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
-		<link href="./_app/immutable/entry/start.s7IbRUW8.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/TVUoRo6s.js" rel="modulepreload">
+		<link href="./_app/immutable/entry/start.atNmmo_0.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/f5oU8ePj.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/B4cpIHhn.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/BqYYm7K9.js" rel="modulepreload">
-		<link href="./_app/immutable/entry/app.C_8pnIgz.js" rel="modulepreload">
+		<link href="./_app/immutable/entry/app.C_TOne4u.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/HclGiUj8.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/xihTtKlq.js" rel="modulepreload">
-		<link href="./_app/immutable/nodes/0.Cgrszhx5.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/CEh_ayhu.js" rel="modulepreload">
-		<link href="./_app/immutable/nodes/2.BVi46GbN.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/0.BEmmvqRy.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DDlkmiaN.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/2.Dro7VaTb.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/fDPEmwpB.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/B2T7E6VJ.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/MOg3UXts.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/Bl-oOXY5.js" rel="modulepreload">
 		<link href="./_app/immutable/nodes/11.BhbVw-AL.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/C0klCF_Z.js" rel="modulepreload">
 		<link href="./_app/env.js" rel="modulepreload">
@@ -110,14 +110,24 @@
 		</div>
 
 		<script>
-			const backendUrl = '%env.VITE_PUBLIC_BACKEND_URL%'.startsWith('%env') ? '' : '%env.VITE_PUBLIC_BACKEND_URL%';
+			let backendUrl = '%env.VITE_PUBLIC_BACKEND_URL%'.startsWith('%env') ? '' : '%env.VITE_PUBLIC_BACKEND_URL%';
+			
+			// Fallback jika env tidak terganti saat build (production)
+			if (!backendUrl || backendUrl === 'http://localhost:8000') {
+				if (window.location.hostname === 'mengeruda.id' || window.location.hostname === 'www.mengeruda.id') {
+					backendUrl = 'https://api-profile.mengeruda.id';
+				}
+			}
+
 			fetch((backendUrl || '') + '/api/village-profile')
 				.then(r => r.json())
 				.then(res => {
 					let data = res.data || res;
 					if (data && (data.logo_url || data.logo)) {
 						let url = data.logo_url || data.logo;
-						if (!url.startsWith('http')) url = '%env.VITE_PUBLIC_BACKEND_URL%' + (url.startsWith('/') ? '' : '/') + (url.startsWith('storage') ? url : url.replace('/storage/', 'storage/'));
+						if (!url.startsWith('http')) {
+							url = (backendUrl || '') + (url.startsWith('/') ? '' : '/') + (url.startsWith('storage') ? url : url.replace('/storage/', 'storage/'));
+						}
 						let el = document.getElementById('splash-logo');
 						if (el) el.src = url;
 						let fav = document.getElementById('dynamic-favicon');
@@ -129,7 +139,7 @@
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_l0unv9 = {
+					__sveltekit_vswdrn = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: null
 					};
@@ -137,11 +147,11 @@
 					const element = document.currentScript.parentElement;
 
 					import("./_app/env.js").then(({ env }) => {
-						__sveltekit_l0unv9.env = env;
+						__sveltekit_vswdrn.env = env;
 
 						Promise.all([
-							import("./_app/immutable/entry/start.s7IbRUW8.js"),
-							import("./_app/immutable/entry/app.C_8pnIgz.js")
+							import("./_app/immutable/entry/start.atNmmo_0.js"),
+							import("./_app/immutable/entry/app.C_TOne4u.js")
 						]).then(([kit, app]) => {
 							kit.start(app, element);
 						});

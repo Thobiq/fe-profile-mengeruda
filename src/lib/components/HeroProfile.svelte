@@ -7,7 +7,7 @@
     if (!path) return '/hero-1.jpg';
     if (path.startsWith('http')) return path;
     const clean = path.replace(/^\/?storage\//, '').replace(/^\//, '');
-    const backend = import.meta.env.VITE_PUBLIC_BACKEND_URL || (import.meta.env.PROD ? 'https://api.mengeruda.id' : 'http://localhost:8000');
+    const backend = import.meta.env.VITE_PUBLIC_BACKEND_URL || (import.meta.env.PROD ? 'https://api-profile.mengeruda.id' : 'http://localhost:8000');
     return `${backend}/storage/${clean}`;
   };
 

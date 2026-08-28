@@ -37,6 +37,10 @@ export default defineConfig(({ mode }) => {
 					changeOrigin: true,
 				}
 			}
+		},
+		test: {
+			include: ['src/**/*.{test,spec}.{js,ts}'],
+			environment: 'jsdom'
 		}
 	};
 });

@@ -4,7 +4,7 @@ export const ssr = false; // Gunakan CSR sementara jika proxy Vite di perlukan, 
 
 export async function load({ fetch }) {
     // Menggunakan PUBLIC_API_URL dari env, fallback ke import.meta.env, atau absolute URL
-    const API_URL = import.meta.env.DEV ? '/api' : (env.PUBLIC_API_URL || import.meta.env.VITE_PUBLIC_API_URL || 'https://api.mengeruda.id/api');
+    const API_URL = import.meta.env.DEV ? '/api' : (env.PUBLIC_API_URL || import.meta.env.VITE_PUBLIC_API_URL || 'https://api-profile.mengeruda.id/api');
     
     const endpoints = [
         fetch(`${API_URL}/galleries`),
