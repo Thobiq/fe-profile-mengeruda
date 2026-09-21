@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import api, { fetchCsrfCookie } from '$lib/api';
+	import api from '$lib/api';
 
 	let email = $state('');
 	let password = $state('');
@@ -56,7 +56,7 @@
 		successMessage = '';
 
 		try {
-			await fetchCsrfCookie();
+			// await fetchCsrfCookie();
 			const res = await api.post('/api/login', { email, password });
 
 			if (res.data.success) {
