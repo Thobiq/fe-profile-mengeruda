@@ -102,8 +102,9 @@
       if (response.data.success) {
         // Ekstrak list of permissions
         let perms = [];
-        if (response.data.user.roles) {
-          response.data.user.roles.forEach(role => {
+        const userObj = response.data.user || response.data.data;
+        if (userObj && userObj.roles) {
+          userObj.roles.forEach(role => {
             if (role.permissions) {
               role.permissions.forEach(p => perms.push(p.name));
             }
@@ -136,18 +137,15 @@
   });
 
   const redirectToLogin = () => {
-    const currentUrl = window.location.pathname + window.location.search;
-    window.location.href = `/login?redirect_to=${encodeURIComponent(currentUrl)}`;
+    localStorage.removeItem('sso_token');
+    localStorage.removeItem('sso_user');
+    const ssoUrl = import.meta.env.VITE_PUBLIC_SSO_URL || 'http://localhost:5176/';
+    window.location.href = ssoUrl;
   };
 
   const handleLogout = async () => {
-    try {
-      await api.post('/api/logout');
-    } catch (err) {
-      console.error('Logout failed:', err);
-    } finally {
-      redirectToLogin();
-    }
+    // Hapus sesi lokal dan kembalikan ke portal SSO
+    redirectToLogin();
   };
 </script>
 

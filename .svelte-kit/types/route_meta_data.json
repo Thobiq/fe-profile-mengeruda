@@ -50,6 +50,9 @@
 	"/(client)/apb-desa": [
 		"src/routes/+layout.js"
 	],
+	"/auth-receiver": [
+		"src/routes/+layout.js"
+	],
 	"/(client)/berita": [
 		"src/routes/+layout.js"
 	],

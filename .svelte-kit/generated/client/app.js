@@ -35,7 +35,8 @@ export const nodes = [
 	() => import('./nodes/23'),
 	() => import('./nodes/24'),
 	() => import('./nodes/25'),
-	() => import('./nodes/26')
+	() => import('./nodes/26'),
+	() => import('./nodes/27')
 ];
 
 export const server_loads = [];
@@ -56,13 +57,14 @@ export const dictionary = {
 		"/admin/profil-desa": [23,[3]],
 		"/admin/struktur-organisasi": [24,[3]],
 		"/(client)/apb-desa": [5,[2]],
+		"/auth-receiver": [25],
 		"/(client)/berita": [6,[2]],
 		"/(client)/berita/[slug]": [7,[2]],
 		"/(client)/demografi": [8,[2]],
-		"/login": [25],
+		"/login": [26],
 		"/(client)/peta": [9,[2]],
 		"/(client)/profil": [10,[2]],
-		"/struktur-organisasi": [26],
+		"/struktur-organisasi": [27],
 		"/(client)/wisata-umkm": [11,[2]]
 	};
 

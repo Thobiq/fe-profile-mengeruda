@@ -11,6 +11,15 @@
   let rolesList = $state([]);
   let permissionsList = $state([]);
 
+  let groupedPermissions = $derived(
+      permissionsList.reduce((acc, perm) => {
+          const appName = perm.application ? perm.application.name : 'Umum (General)';
+          if (!acc[appName]) acc[appName] = [];
+          acc[appName].push(perm);
+          return acc;
+      }, {})
+  );
+
   // --- Modals State ---
   let showUserModal = $state(false);
   let isUserEditMode = $state(false);
@@ -31,6 +40,8 @@
   let f_user_name = $state('');
   let f_user_email = $state('');
   let f_user_password = $state('');
+  let f_user_nik = $state('');
+  let f_user_phone = $state('');
   let f_user_roles = $state([]);
 
   // --- Role Form Data ---
@@ -65,6 +76,8 @@
       f_user_name = '';
       f_user_email = '';
       f_user_password = '';
+      f_user_nik = '';
+      f_user_phone = '';
       f_user_roles = [];
       isUserEditMode = false;
       editUserId = null;
@@ -75,6 +88,8 @@
       f_user_name = user.name;
       f_user_email = user.email;
       f_user_password = ''; // Kosongkan, hanya isi jika ingin mengubah
+      f_user_nik = user.nik || '';
+      f_user_phone = user.phone || '';
       f_user_roles = user.roles.map(r => r.id);
       isUserEditMode = true;
       editUserId = user.id;
@@ -89,6 +104,8 @@
           const payload = {
               name: f_user_name,
               email: f_user_email,
+              nik: f_user_nik,
+              phone: f_user_phone,
               roles: f_user_roles
           };
           if (!isUserEditMode || f_user_password) {
@@ -127,7 +144,7 @@
   const openEditRole = (role) => {
       f_role_name = role.name;
       f_role_desc = role.description || '';
-      f_role_permissions = role.permissions.map(p => p.id);
+      f_role_permissions = role.permissions ? role.permissions.map(p => p.id) : [];
       isRoleEditMode = true;
       editRoleId = role.id;
       showRoleModal = true;
@@ -368,6 +385,14 @@
                   <input type="email" bind:value={f_user_email} required class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00a651] w-full text-sm">
               </div>
               <div class="flex flex-col gap-1.5">
+                  <label class="font-serif font-bold text-gray-700 text-sm">NIK</label>
+                  <input type="text" bind:value={f_user_nik} pattern="[0-9]+" maxlength="16" class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00a651] w-full text-sm" placeholder="Opsional, 16 digit angka">
+              </div>
+              <div class="flex flex-col gap-1.5">
+                  <label class="font-serif font-bold text-gray-700 text-sm">No HP</label>
+                  <input type="text" bind:value={f_user_phone} pattern="[0-9]+" class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00a651] w-full text-sm" placeholder="Opsional (mis: 08123...)">
+              </div>
+              <div class="flex flex-col gap-1.5">
                 <label class="font-serif font-bold text-gray-700 text-sm">
                     Password 
                     {#if isUserEditMode}
@@ -431,20 +456,27 @@
               
               <div class="flex flex-col gap-2 mt-2">
                   <label class="font-serif font-bold text-gray-700 text-sm">Hak Akses (Permissions)</label>
-                  <div class="flex flex-col gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200 max-h-[300px] overflow-y-auto">
-                      {#each permissionsList as perm}
-                          <label class="flex items-start gap-3 cursor-pointer group">
-                              <input 
-                                  type="checkbox" 
-                                  checked={f_role_permissions.includes(perm.id)} 
-                                  onchange={() => toggleRolePermission(perm.id)}
-                                  class="w-4 h-4 mt-0.5 text-[#00a651] rounded border-gray-300 focus:ring-[#00a651]"
-                              >
-                              <div class="flex flex-col">
-                                  <span class="text-sm font-semibold text-gray-700 group-hover:text-gray-900">{perm.name}</span>
-                                  <span class="text-xs text-gray-500">{perm.description}</span>
+                  <div class="flex flex-col gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200 max-h-[300px] overflow-y-auto">
+                      {#each Object.entries(groupedPermissions) as [appName, perms]}
+                          <div>
+                              <h4 class="text-sm font-bold text-gray-800 mb-2 pb-1 border-b border-gray-200">{appName}</h4>
+                              <div class="flex flex-col gap-3 pl-2">
+                                  {#each perms as perm}
+                                      <label class="flex items-start gap-3 cursor-pointer group">
+                                          <input 
+                                              type="checkbox" 
+                                              checked={f_role_permissions.includes(perm.id)} 
+                                              onchange={() => toggleRolePermission(perm.id)}
+                                              class="w-4 h-4 mt-0.5 text-[#00a651] rounded border-gray-300 focus:ring-[#00a651]"
+                                          >
+                                          <div class="flex flex-col">
+                                              <span class="text-sm font-semibold text-gray-700 group-hover:text-gray-900">{perm.name}</span>
+                                              <span class="text-xs text-gray-500">{perm.description}</span>
+                                          </div>
+                                      </label>
+                                  {/each}
                               </div>
-                          </label>
+                          </div>
                       {/each}
                   </div>
               </div>
