@@ -139,8 +139,9 @@
   const redirectToLogin = () => {
     localStorage.removeItem('sso_token');
     localStorage.removeItem('sso_user');
-    const ssoUrl = import.meta.env.VITE_PUBLIC_SSO_URL || 'http://localhost:5176/';
-    window.location.href = ssoUrl;
+    const ssoBase = import.meta.env.VITE_PUBLIC_SSO_URL || 'http://localhost:5176';
+    const ssoUrl = ssoBase.endsWith('/') ? ssoBase.slice(0, -1) : ssoBase;
+    window.location.href = ssoUrl + '/logout';
   };
 
   const handleLogout = async () => {
